@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -31,17 +31,14 @@ nav a:hover {opacity:0.8;}
 /* Hero Banner Rotativo */
 .hero {
   position: relative;
-  height:450px;
+  height:500px;
   display:flex;
   flex-direction: column;
   justify-content:center;
   align-items:center;
-  color:#fff;
-  text-shadow:0 3px 15px rgba(0,0,0,0.5);
   text-align:center;
   padding:0 20px;
   margin-top:80px;
-  border-radius:10px;
   overflow: hidden;
 }
 .hero img {
@@ -55,12 +52,26 @@ nav a:hover {opacity:0.8;}
   transition: opacity 1s ease-in-out;
   z-index: -1;
 }
-.hero h2, .hero p {position: relative; z-index:1;}
+.hero h2, .hero p {position: relative; z-index:1; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6);}
 .hero h2 {font-size:2.8em; margin-bottom:15px;}
-.hero p {font-size:1.2em; max-width:700px; line-height:1.5;}
+.hero p {font-size:1.2em; max-width:750px; line-height:1.5; margin-bottom:20px;}
+.hero .btn-group {position:relative; z-index:1; display:flex; gap:15px;}
+.hero .btn {
+  padding:12px 20px;
+  background:#ffdd00;
+  color:#003366;
+  font-weight:700;
+  border:none;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:1em;
+  cursor:pointer;
+  transition:0.3s;
+}
+.hero .btn:hover {background:#ffd500;}
 
 /* Container principal */
-.container {max-width:1200px; margin:40px auto 60px auto; padding:0 20px;}
+.container {max-width:1200px; margin:50px auto 60px auto; padding:0 20px;}
 
 /* Títulos de seção */
 .section-title {
@@ -84,10 +95,6 @@ nav a:hover {opacity:0.8;}
   padding:25px;
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
   transition: transform 0.3s, box-shadow 0.3s;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  text-align:left;
 }
 .card:hover {
   transform:translateY(-10px);
@@ -116,8 +123,9 @@ footer {
 @media(max-width:500px){
   header h1{font-size:1.4em;}
   nav a{margin-left:15px; font-size:0.9em;}
-  .hero h2{font-size:2em;}
+  .hero h2{font-size:2.2em;}
   .hero p{font-size:1em;}
+  .hero .btn {font-size:0.9em;}
   .cards {gap:15px;}
 }
 </style>
@@ -134,11 +142,17 @@ footer {
 </nav>
 </header>
 
+<!-- BANNER ROTATIVO -->
 <section class="hero">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNwJ1NMw6WxweEVMJxIR8NfkNmmyJQ7DcyR_ee1zFBq1MZJ-seu8vxLaSr&s=10" alt="Banner 1">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9KbxRh2YipsgI_BacZDyMr7lcFkvpp3y4qCK1nbOjDaQA2NkUbN5PpzE&s=10" alt="Banner 2">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi84xQ64xiPQ3IbqZFCFGZZE75JsXS0JtAjOQ4scWIIX_2s4ztt4x6SdEt&s=10" alt="Banner 1">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThTfFbukpSsZyGxugq80rvUiYQuYAsdOfK4B1nhbjLRONnSO42otUCmfM&s=10" alt="Banner 2">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcCkS-iRwVxBIqCL4r7M1nZUDEeH1OCRGbFRpktgzGXmH6gPOL0nkiNVF&s=10" alt="Banner 3">
   <h2>Voe com Conforto e Segurança</h2>
-  <p>Descubra nossos destinos exclusivos e aproveite a frota moderna da Azol Linhas Aéreas. Experiência premium em todos os voos.</p>
+  <p>Descubra nossos destinos exclusivos e aproveite a frota moderna da Azol Linhas Aéreas.</p>
+  <div class="btn-group">
+    <a class="btn" href="#">Comprar Passagem</a>
+    <a class="btn" href="#">Check-in</a>
+  </div>
 </section>
 
 <div class="container">
@@ -209,20 +223,20 @@ footer {
 </footer>
 
 <script>
-// Banner rotativo funcional
+// Banner rotativo funcional com 3 imagens
 let slides = document.querySelectorAll('.hero img');
 let current = 0;
 
-// Inicializa a primeira imagem
+// Inicializa primeira imagem visível
 slides.forEach((img,i) => img.style.opacity = (i===0 ? '1':'0'));
 
-// Função de troca
+// Rotação automática
 setInterval(() => {
   slides[current].style.opacity = '0';
   current = (current + 1) % slides.length;
   slides[current].style.opacity = '1';
-}, 5000); // troca a cada 5s
+}, 5000);
 </script>
 
 </body>
-</html>
+  </html>
