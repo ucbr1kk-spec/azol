@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -43,36 +43,13 @@ nav a:hover {opacity:0.8;}
   margin-top:80px;
   border-radius:10px;
 }
-
-/* Hero texto animado */
 .hero h2 {font-size:2.8em; margin-bottom:15px;}
 .hero p {font-size:1.2em; max-width:700px; line-height:1.5;}
 
-/* Container */
+/* Container principal */
 .container {max-width:1200px; margin:40px auto 60px auto; padding:0 20px;}
 
-/* Cards modernos */
-.cards {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
-  margin-top:30px;
-}
-.card {
-  background:#fff;
-  border-radius:15px;
-  padding:25px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.15);
-}
-.card h3 {color:#0066cc; margin-bottom:12px; font-size:1.3em;}
-.card p {color:#555; font-size:1em; line-height:1.5;}
-
-/* Seções adicionais estilo Azul/LATAM */
+/* Títulos de seção */
 .section-title {
   text-align:center;
   margin-bottom:25px;
@@ -80,6 +57,31 @@ nav a:hover {opacity:0.8;}
   font-size:2em;
   font-weight:700;
 }
+
+/* Cards organizados */
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  margin-bottom:50px;
+}
+.card {
+  background:#fff;
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  text-align:left;
+}
+.card:hover {
+  transform:translateY(-10px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+.card h3 {color:#0066cc; margin-bottom:12px; font-size:1.3em;}
+.card p {color:#555; font-size:1em; line-height:1.5;}
 
 /* Footer */
 footer {
@@ -98,6 +100,7 @@ footer {
   nav a{margin-left:15px; font-size:0.9em;}
   .hero h2{font-size:2em;}
   .hero p{font-size:1em;}
+  .cards {gap:15px;}
 }
 </style>
 </head>
@@ -119,6 +122,7 @@ footer {
 </section>
 
 <div class="container">
+<!-- Frota -->
 <section>
 <h2 class="section-title">Nossa Frota</h2>
 <div class="cards">
@@ -137,6 +141,7 @@ footer {
 </div>
 </section>
 
+<!-- Destinos -->
 <section>
 <h2 class="section-title">Destinos</h2>
 <div class="cards">
@@ -155,6 +160,7 @@ footer {
 </div>
 </section>
 
+<!-- Classes e Check-in -->
 <section>
 <h2 class="section-title">Classes e Check-in</h2>
 <div class="cards">
@@ -164,7 +170,7 @@ footer {
 </div>
 <div class="card">
 <h3>📱 Check-in Online</h3>
-<p>Em breve você poderá realizar check-in digital pelo celular.</p>
+<p>Em breve você poderá realizar check-in digital e obter cartão de embarque pelo celular.</p>
 </div>
 </div>
 </section>
