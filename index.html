@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -30,14 +30,14 @@ nav a:hover {opacity:0.8;}
 
 /* Hero Banner */
 .hero {
-  background: url('https://images.unsplash.com/photo-1600796757067-35b4b6fbdaf7?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+  background: url('https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg') center/cover no-repeat;
   height:450px;
   display:flex;
   flex-direction: column;
   justify-content:center;
   align-items:center;
   color:#fff;
-  text-shadow:0 3px 10px rgba(0,0,0,0.5);
+  text-shadow:0 3px 15px rgba(0,0,0,0.5);
   text-align:center;
   padding:0 20px;
   margin-top:80px;
@@ -58,7 +58,7 @@ nav a:hover {opacity:0.8;}
   font-weight:700;
 }
 
-/* Cards organizados */
+/* Cards modernos */
 .cards {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -79,6 +79,11 @@ nav a:hover {opacity:0.8;}
 .card:hover {
   transform:translateY(-10px);
   box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+.card img {
+  width:100%;
+  border-radius:10px;
+  margin-bottom:15px;
 }
 .card h3 {color:#0066cc; margin-bottom:12px; font-size:1.3em;}
 .card p {color:#555; font-size:1em; line-height:1.5;}
@@ -122,21 +127,29 @@ footer {
 </section>
 
 <div class="container">
-<!-- Frota -->
+<!-- Frota em destaque -->
 <section>
-<h2 class="section-title">Nossa Frota</h2>
+<h2 class="section-title">Frota em Destaque</h2>
 <div class="cards">
 <div class="card">
-<h3>✈️ ATR 72-600</h3>
-<p>Perfeito para rotas regionais, seguro e confortável.</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Airbus_A320neo_Boeing_737_comparison.jpg" alt="A320neo">
+<h3>✈️ Airbus A320neo</h3>
+<p>Perfeito para médias distâncias, moderno e econômico.</p>
 </div>
 <div class="card">
-<h3>✈️ Embraer 195</h3>
-<p>Ideal para médias distâncias com conforto executivo.</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Airbus_A330-900neo.jpg" alt="A330neo">
+<h3>✈️ Airbus A330neo</h3>
+<p>Longas rotas internacionais, conforto e eficiência máxima.</p>
 </div>
 <div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Embraer_E195_E2_Atlas_Air.jpg" alt="Embraer E195">
+<h3>✈️ Embraer E195</h3>
+<p>Ideal para rotas médias com excelente desempenho e conforto.</p>
+</div>
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Cessna_208B_Grand_Caravan_-_G1000.jpg" alt="Cessna Caravan">
 <h3>✈️ Cessna Caravan</h3>
-<p>Pequeno porte, ideal para voos curtos e turismo.</p>
+<p>Voos curtos e turísticos, perfeito para cidades pequenas.</p>
 </div>
 </div>
 </section>
