@@ -30,7 +30,10 @@ nav a:hover {opacity:0.8;}
 
 /* Hero Banner */
 .hero {
-  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStQCmJERDBm3WpMoKVUmNCeQzSf58Jz6Z41XIK-VSay8ZNX7v6SFZyM7Q&s=10') center/cover no-repeat;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStQCmJERDBm3WpMoKVUmNCeQzSf58Jz6Z41XIK-VSay8ZNX7v6SFZyM7Q&s=10');
+  background-position: center center;  /* centraliza horizontal e vertical */
+  background-size: cover;               /* cobre toda a área */
+  background-repeat: no-repeat;
   height:450px;
   display:flex;
   flex-direction: column;
@@ -43,8 +46,6 @@ nav a:hover {opacity:0.8;}
   margin-top:80px;
   border-radius:10px;
 }
-.hero h2 {font-size:2.8em; margin-bottom:15px;}
-.hero p {font-size:1.2em; max-width:700px; line-height:1.5;}
 
 /* Container principal */
 .container {max-width:1200px; margin:40px auto 60px auto; padding:0 20px;}
