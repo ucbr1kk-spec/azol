@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <title>Azol Linhas Aéreas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Fonte elegante -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* Reset e fonte */
 * {margin:0; padding:0; box-sizing:border-box;}
-body {font-family: 'Montserrat', sans-serif; background:#f5f7fa; color:#333; line-height:1.5;}
+body {font-family:'Montserrat',sans-serif; background:#f5f7fa; color:#333; line-height:1.5;}
 
 /* Header */
 header {
@@ -31,8 +30,8 @@ nav a:hover {opacity:0.8;}
 
 /* Hero Banner */
 .hero {
-  background: url('https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-  height:400px;
+  background: url('https://images.unsplash.com/photo-1600796757067-35b4b6fbdaf7?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+  height:450px;
   display:flex;
   flex-direction: column;
   justify-content:center;
@@ -42,18 +41,22 @@ nav a:hover {opacity:0.8;}
   text-align:center;
   padding:0 20px;
   margin-top:80px;
+  border-radius:10px;
 }
-.hero h2 {font-size:2.5em; margin-bottom:15px;}
+
+/* Hero texto animado */
+.hero h2 {font-size:2.8em; margin-bottom:15px;}
 .hero p {font-size:1.2em; max-width:700px; line-height:1.5;}
 
 /* Container */
 .container {max-width:1200px; margin:40px auto 60px auto; padding:0 20px;}
 
-/* Cards Modernos */
+/* Cards modernos */
 .cards {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:25px;
+  margin-top:30px;
 }
 .card {
   background:#fff;
@@ -64,10 +67,19 @@ nav a:hover {opacity:0.8;}
 }
 .card:hover {
   transform:translateY(-10px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.12);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
 }
 .card h3 {color:#0066cc; margin-bottom:12px; font-size:1.3em;}
 .card p {color:#555; font-size:1em; line-height:1.5;}
+
+/* Seções adicionais estilo Azul/LATAM */
+.section-title {
+  text-align:center;
+  margin-bottom:25px;
+  color:#003366;
+  font-size:2em;
+  font-weight:700;
+}
 
 /* Footer */
 footer {
@@ -76,13 +88,15 @@ footer {
   text-align:center;
   padding:20px;
   font-size:14px;
+  margin-top:40px;
+  border-radius:5px 5px 0 0;
 }
 
 /* Responsivo */
 @media(max-width:500px){
   header h1{font-size:1.4em;}
   nav a{margin-left:15px; font-size:0.9em;}
-  .hero h2{font-size:1.8em;}
+  .hero h2{font-size:2em;}
   .hero p{font-size:1em;}
 }
 </style>
@@ -105,22 +119,53 @@ footer {
 </section>
 
 <div class="container">
-<section class="cards">
+<section>
+<h2 class="section-title">Nossa Frota</h2>
+<div class="cards">
 <div class="card">
-<h3>✈️ Frota Moderna</h3>
-<p>ATR 72-600, Embraer 195 e Cessna Caravan para rotas regionais, médias e curtas.</p>
+<h3>✈️ ATR 72-600</h3>
+<p>Perfeito para rotas regionais, seguro e confortável.</p>
 </div>
 <div class="card">
-<h3>📍 Destinos Exclusivos</h3>
-<p>Operamos apenas nas cidades do nosso RP com planejamento realista e horários estratégicos.</p>
+<h3>✈️ Embraer 195</h3>
+<p>Ideal para médias distâncias com conforto executivo.</p>
 </div>
+<div class="card">
+<h3>✈️ Cessna Caravan</h3>
+<p>Pequeno porte, ideal para voos curtos e turismo.</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Destinos</h2>
+<div class="cards">
+<div class="card">
+<h3>📍 Greater Rockford</h3>
+<p>Conexão com voos nacionais e internacionais.</p>
+</div>
+<div class="card">
+<h3>📍 Orenji</h3>
+<p>Rotas regionais curtas com Cessna Caravan.</p>
+</div>
+<div class="card">
+<h3>📍 Lukla</h3>
+<p>Voos turísticos curtos, cenário incrível.</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Classes e Check-in</h2>
+<div class="cards">
 <div class="card">
 <h3>💺 Classes Premium</h3>
-<p>Econômica, Executiva e Prime, com conforto e serviços de primeira classe.</p>
+<p>Econômica, Executiva e Prime, conforto e serviços de primeira.</p>
 </div>
 <div class="card">
 <h3>📱 Check-in Online</h3>
-<p>Em breve você poderá realizar check-in digital e obter cartão de embarque pelo celular.</p>
+<p>Em breve você poderá realizar check-in digital pelo celular.</p>
+</div>
 </div>
 </section>
 </div>
