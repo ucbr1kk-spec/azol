@@ -1,168 +1,186 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | Operações PTFS</title>
+    <title>Azol Linhas Aéreas | PTFS Official Operations</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #001d3d; color: white; overflow-x: hidden; }
-        .hero-bg {
-            background: linear-gradient(rgba(0, 29, 61, 0.85), rgba(0, 29, 61, 0.95)), 
-                        url('https://images.unsplash.com/photo-1544016768-982d1554f0b9?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover; background-position: center;
-        }
-        .boarding-font { font-family: monospace; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .gradient-brand { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
+        .route-glow { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5)); }
         .hidden { display: none; }
-        @media print { .no-print { display: none; } }
     </style>
 </head>
-<body>
+<body class="bg-[#f8fafc]">
 
-    <header class="bg-[#001d3d] border-b border-white/10 no-print sticky top-0 z-50">
-        <div class="container mx-auto px-5 h-20 flex justify-between items-center">
+    <div class="bg-[#ffc300] py-1 text-center text-[10px] font-bold uppercase tracking-widest text-[#001d3d]">
+        Status da Rede PTFS: Operacional | Logado como: <span id="statusUser">Visitante</span>
+    </div>
+
+    <header class="sticky top-0 z-50 glass border-b border-gray-200">
+        <div class="container mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-1.5 rounded-lg shadow-lg">
-                    <svg class="w-6 h-6 text-[#001d3d]" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.19c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.19c.31-.17.69-.17 1 0l7.97 4.19c.32.17.53.5.53.88v9z"/></svg>
+                <div class="bg-[#003566] p-2 rounded-lg shadow-inner">
+                    <svg class="w-6 h-6 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.19c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.19c.31-.17.69-.17 1 0l7.97 4.19c.32.17.53.5.53.88v9z"/></svg>
                 </div>
-                <h1 class="font-bold text-xl uppercase tracking-tighter">Azol</h1>
+                <div>
+                    <h1 class="font-extrabold text-2xl tracking-tighter text-[#001d3d]">AZOL</h1>
+                    <p class="text-[9px] font-bold text-sky-600 uppercase tracking-[0.2em] leading-none">Linhas Aéreas</p>
+                </div>
             </div>
-            <div id="user-info" class="flex items-center gap-4">
-                <button onclick="scrollPara('frota')" class="text-[10px] font-bold text-blue-400 uppercase tracking-widest hover:text-white transition">Frota</button>
-                <button id="btnAuth" onclick="toggleModal('modalLogin')" class="bg-[#003566] px-5 py-2 rounded-xl font-bold text-xs border border-white/10 hover:bg-blue-600 transition">Minha Conta</button>
-            </div>
+            
+            <nav class="hidden lg:flex gap-8 text-sm font-semibold text-[#003566]">
+                <a href="#home" class="hover:text-sky-500 transition">Início</a>
+                <a href="#mapa" class="hover:text-sky-500 transition">Mapa</a>
+                <a href="#frota" class="hover:text-sky-500 transition">Frota</a>
+            </nav>
+
+            <button id="btnAuth" onclick="toggleModal('modalLogin')" class="bg-[#003566] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-600 transition-all shadow-lg">
+                Minha Conta
+            </button>
         </div>
     </header>
 
-    <div id="modalLogin" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-5 bg-black/95 backdrop-blur-md">
-        <div class="bg-white text-slate-900 rounded-[2.5rem] w-full max-w-sm p-10">
-            <h3 class="text-2xl font-black mb-2">Acesso Azol</h3>
-            <p class="text-slate-400 text-sm mb-8 font-medium">Use sua senha de tripulante ou cliente.</p>
-            <div class="space-y-4">
-                <input id="loginUser" type="text" placeholder="Nome de Usuário" class="w-full p-4 bg-slate-100 rounded-xl outline-none font-bold">
-                <input id="loginPass" type="password" placeholder="Senha" class="w-full p-4 bg-slate-100 rounded-xl outline-none font-bold border-2 border-transparent focus:border-blue-500">
-                <button onclick="autenticar()" class="w-full p-5 bg-[#001d3d] text-white font-black rounded-2xl shadow-xl hover:bg-blue-900 transition">ENTRAR NO SISTEMA</button>
-                <button onclick="toggleModal('modalLogin')" class="w-full text-xs font-bold text-slate-300 uppercase mt-2">Cancelar</button>
-            </div>
+    <div id="modalLogin" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-5 bg-black/80 backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-[2rem] w-full max-w-sm shadow-2xl">
+            <h3 class="text-2xl font-black text-[#001d3d] mb-6">Acesso Piloto</h3>
+            <input id="loginUser" type="text" placeholder="Usuário" class="w-full p-4 mb-3 bg-gray-100 rounded-xl outline-none font-medium">
+            <input id="loginPass" type="password" placeholder="Senha" class="w-full p-4 mb-6 bg-gray-100 rounded-xl outline-none font-medium">
+            <button onclick="autenticar()" class="w-full py-4 gradient-brand text-white rounded-xl font-bold shadow-lg">Entrar</button>
+            <button onclick="toggleModal('modalLogin')" class="w-full mt-4 text-xs font-bold text-gray-400 uppercase">Fechar</button>
         </div>
     </div>
 
-    <section class="hero-bg pt-12 pb-20 px-5 no-print text-center">
-        <div class="max-w-md mx-auto">
-            <h2 class="text-4xl font-extrabold mb-8 leading-tight">Voe pelo <br><span class="text-blue-400">Arquipélago</span></h2>
-            
-            <div class="space-y-3 bg-white/5 p-4 rounded-[2.5rem] backdrop-blur-md border border-white/10 shadow-2xl">
-                <select id="inpOrigem" class="w-full p-5 rounded-2xl bg-white text-slate-900 font-bold outline-none">
-                    <option value="" disabled selected>Origem</option>
-                    <option value="GR">Greater Rockford</option>
-                    <option value="CY">Cypress Terrace</option>
-                    <option value="SA">Saint Barthélemy</option>
-                    <option value="LA">Larnaca</option>
-                    <option value="PE">Perth</option>
-                    <option value="OR">Orenji</option>
-                    <option value="GV">Grindavik</option>
-                    <option value="IZ">Izolirani</option>
-                </select>
-                <select id="inpDestino" class="w-full p-5 rounded-2xl bg-white text-slate-900 font-bold outline-none">
-                    <option value="" disabled selected>Destino</option>
-                    <option value="GR">Greater Rockford</option>
-                    <option value="CY">Cypress Terrace</option>
-                    <option value="SA">Saint Barthélemy</option>
-                    <option value="LA">Larnaca</option>
-                    <option value="PE">Perth</option>
-                    <option value="OR">Orenji</option>
-                    <option value="GV">Grindavik</option>
-                    <option value="IZ">Izolirani</option>
-                </select>
-                <select id="inpClasse" class="w-full p-5 rounded-2xl bg-white text-slate-900 font-bold outline-none">
-                    <option value="1">Classe Econômica</option>
-                    <option value="1.8">Executiva Azol</option>
-                    <option value="3.5">First Class Azol</option>
-                </select>
-                <button onclick="emitirBilhete()" class="w-full p-5 rounded-2xl bg-[#001d3d] text-white font-black uppercase tracking-widest shadow-2xl border border-white/20 hover:scale-[1.02] transition">Emitir Passagem</button>
-            </div>
+    <section id="home" class="relative py-24 lg:py-32 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#001d3dbf] to-transparent"></div>
         </div>
-    </section>
-
-    <section class="py-12 bg-white text-slate-900 no-print px-5 text-center">
-        <div class="max-w-md mx-auto">
-            <h3 class="text-xl font-black mb-6">Malha Estratégica PTFS</h3>
-            <div class="rounded-3xl overflow-hidden border-2 border-slate-100 shadow-xl">
-                <img src="https://i.imgur.com/5Xh3M8w.png" class="w-full">
-            </div>
-        </div>
-    </section>
-
-    <section id="frota" class="py-16 bg-slate-50 text-slate-900 px-5">
-        <div class="max-w-md mx-auto">
-            <h3 class="text-2xl font-black mb-10 text-center">Nossa Frota</h3>
-            <div class="space-y-8">
-                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-200">
-                    <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="w-full h-44 object-cover">
-                    <div class="p-6">
-                        <h4 class="font-black text-lg italic">Airbus A330neo</h4>
-                        <span class="bg-blue-100 text-blue-600 text-[9px] font-black px-2 py-1 rounded uppercase tracking-tighter">Long Haul / Internacional</span>
+        
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl text-white">
+                <span class="bg-sky-500/20 text-sky-300 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-sky-500/30">Operação 100% PTFS</span>
+                <h2 class="text-5xl lg:text-7xl font-extrabold mt-6 leading-tight">Voe por todo o <span class="text-sky-400 font-light italic">Arquipélago.</span></h2>
+                
+                <div class="mt-10 bg-white p-3 rounded-3xl shadow-2xl max-w-xl flex flex-col gap-3">
+                    <div class="flex flex-col md:flex-row gap-2">
+                        <select id="inpOrigem" class="flex-1 p-4 rounded-xl bg-gray-50 border-none text-slate-700 font-bold outline-none">
+                            <option value="" disabled selected>Origem</option>
+                            <option value="GR">Greater Rockford</option>
+                            <option value="CY">Cypress Terrace</option>
+                            <option value="SA">Saint Barthélemy</option>
+                            <option value="LA">Larnaca</option>
+                            <option value="PE">Perth</option>
+                            <option value="OR">Orenji</option>
+                            <option value="GV">Grindavik</option>
+                            <option value="IZ">Izolirani</option>
+                        </select>
+                        <select id="inpDestino" class="flex-1 p-4 rounded-xl bg-gray-50 border-none text-slate-700 font-bold outline-none">
+                            <option value="" disabled selected>Destino</option>
+                            <option value="GR">Greater Rockford</option>
+                            <option value="CY">Cypress Terrace</option>
+                            <option value="SA">Saint Barthélemy</option>
+                            <option value="LA">Larnaca</option>
+                            <option value="PE">Perth</option>
+                            <option value="OR">Orenji</option>
+                            <option value="GV">Grindavik</option>
+                            <option value="IZ">Izolirani</option>
+                        </select>
                     </div>
-                </div>
-                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-200">
-                    <img src="https://aeroflap.com.br/wp-content/uploads/2023/10/A320neo-Azul-Aero-800x450-1.jpg" class="w-full h-44 object-cover">
-                    <div class="p-6">
-                        <h4 class="font-black text-lg italic">Airbus A320neo</h4>
-                        <span class="bg-sky-100 text-sky-600 text-[9px] font-black px-2 py-1 rounded uppercase tracking-tighter">Mainline / Continental</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-200">
-                    <img src="https://media.airspace-africa.com/wp-content/uploads/2021/04/Azul_ATR_72-600_-_PR-AQV_41300977464-1024x576.jpg" class="w-full h-44 object-cover">
-                    <div class="p-6">
-                        <h4 class="font-black text-lg italic">ATR 72-600</h4>
-                        <span class="bg-emerald-100 text-emerald-600 text-[9px] font-black px-2 py-1 rounded uppercase tracking-tighter">Regional / Conecta</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-200">
-                    <img src="https://imagens.neofeed.com.br/2020/08/cessna-azul-conecta-neofeed-1024x683.jpg" class="w-full h-44 object-cover">
-                    <div class="p-6">
-                        <h4 class="font-black text-lg italic">Cessna Grand Caravan</h4>
-                        <span class="bg-orange-100 text-orange-600 text-[9px] font-black px-2 py-1 rounded uppercase tracking-tighter">Island Hopper</span>
-                    </div>
+                    <select id="inpClasse" class="w-full p-4 rounded-xl bg-gray-50 border-none text-slate-700 font-bold outline-none">
+                        <option value="1">Classe Econômica</option>
+                        <option value="2.5">Primeira Classe Azol (2.5x)</option>
+                    </select>
+                    <button onclick="emitirBilhete()" class="gradient-brand text-white w-full py-5 rounded-2xl font-black tracking-widest hover:brightness-125 transition">RESERVAR AGORA</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="modalVoucher" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-5 bg-black/95 backdrop-blur-md">
-        <div class="bg-white text-slate-900 rounded-[2.5rem] w-full max-w-sm overflow-hidden shadow-2xl">
-            <div class="bg-[#001d3d] p-10 text-white text-center">
-                <div class="flex justify-between items-center text-3xl font-bold boarding-font px-2">
+    <section id="mapa" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-extrabold text-[#001d3d]">Mapa do Arquipélago</h3>
+                <div class="w-20 h-1.5 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+            <div class="max-w-4xl mx-auto bg-slate-100 p-4 rounded-[2rem] shadow-inner">
+                <img src="https://i.imgur.com/5Xh3M8w.png" alt="Mapa PTFS" class="w-full rounded-xl shadow-2xl route-glow">
+            </div>
+        </div>
+    </section>
+
+    <section id="frota" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-extrabold text-[#001d3d] mb-12">Nossa Frota</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://imagens.neofeed.com.br/2020/08/cessna-azul-conecta-neofeed-1024x683.jpg" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg">Cessna Grand Caravan</h4>
+                        <p class="text-xs text-orange-500 font-bold mt-1 uppercase tracking-tighter">Island Hopper</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://media.airspace-africa.com/wp-content/uploads/2021/04/Azul_ATR_72-600_-_PR-AQV_41300977464-1024x576.jpg" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg">ATR 72-600</h4>
+                        <p class="text-xs text-green-600 font-bold mt-1 uppercase tracking-tighter">Regional Connect</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://aeroflap.com.br/wp-content/uploads/2023/10/A320neo-Azul-Aero-800x450-1.jpg" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg">Airbus A320neo</h4>
+                        <p class="text-xs text-blue-500 font-bold mt-1 uppercase tracking-tighter">Mainline Short Haul</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg">Airbus A330neo</h4>
+                        <p class="text-xs text-indigo-600 font-bold mt-1 uppercase tracking-tighter">Long Haul Luxury</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modalVoucher" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-5 bg-[#001d3de6] backdrop-blur-xl">
+        <div class="bg-white rounded-[3rem] w-full max-w-sm overflow-hidden shadow-2xl">
+            <div class="gradient-brand p-10 text-white text-center">
+                <div class="flex justify-between items-center text-4xl font-bold boarding-font">
                     <span id="resOrigem">---</span>
-                    <span class="text-blue-400 opacity-20">➔</span>
+                    <span class="text-sky-400 opacity-40">➔</span>
                     <span id="resDestino">---</span>
                 </div>
-                <p id="resClasseNome" class="text-[9px] font-black text-blue-400 uppercase tracking-[0.2em] mt-6">ECONÔMICA</p>
+                <p id="resClasseNome" class="text-[10px] font-black text-sky-400 uppercase tracking-widest mt-6">ECONÔMICA</p>
             </div>
-            <div class="p-8 text-center">
-                <div class="grid grid-cols-2 gap-4 mb-8 text-left">
-                    <div>
-                        <p class="text-[8px] font-black text-slate-300 uppercase">Portão</p>
-                        <p id="resPortao" class="text-xl font-black italic">G00</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[8px] font-black text-slate-300 uppercase">Tarifa</p>
-                        <p id="resPreco" class="text-xl font-black text-emerald-600 italic">R$ 0,00</p>
-                    </div>
+            <div class="p-10 text-center">
+                <div class="flex justify-between mb-8">
+                    <div class="text-left"><p class="text-[9px] font-bold text-gray-400 uppercase">Portão</p><p id="resPortao" class="text-xl font-black">G01</p></div>
+                    <div class="text-right"><p class="text-[9px] font-bold text-gray-400 uppercase">Valor</p><p id="resPreco" class="text-xl font-black text-emerald-600">R$ 0,00</p></div>
                 </div>
-                <img id="qrCode" src="" class="w-32 h-32 mx-auto mb-6 p-2 bg-slate-50 rounded-2xl">
-                <p id="resCode" class="text-xl font-black tracking-[0.4em] text-[#001d3d] mb-6">AZ-XXXX</p>
-                <div class="flex gap-2">
-                    <button onclick="copiarChat()" class="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-[10px] uppercase">Copiar Chat</button>
-                    <button onclick="toggleModal('modalVoucher')" class="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase">Fechar</button>
-                </div>
+                <img id="qrCode" src="" class="w-32 h-32 mx-auto mb-6 bg-gray-50 p-2 rounded-2xl">
+                <p id="resCode" class="text-xl font-black tracking-[0.4em] text-[#001d3d] mb-8">AZ-0000</p>
+                <button onclick="copiarChat()" class="w-full py-4 gradient-brand text-white rounded-2xl font-bold text-sm shadow-xl">COPIAR PARA CHAT</button>
+                <button onclick="toggleModal('modalVoucher')" class="mt-4 text-[10px] font-bold text-gray-400 uppercase">Fechar</button>
             </div>
         </div>
     </div>
 
+    <footer class="bg-[#001d3d] text-white py-16 border-t border-white/5">
+        <div class="container mx-auto px-4 text-center">
+            <h4 class="font-extrabold text-3xl mb-4 tracking-tighter">AZOL</h4>
+            <p class="text-slate-400 text-sm max-w-md mx-auto mb-8">A melhor experiência de aviação virtual dentro do PTFS. Operando com realismo e tecnologia.</p>
+            <p class="text-[10px] text-slate-600 font-bold uppercase tracking-widest">© 2026 AZOL LINHAS AÉREAS</p>
+        </div>
+    </footer>
+
     <script>
-        // Coordenadas das Ilhas (Lógica de Preço)
+        // Coordenadas das Ilhas (Logica de Preço)
         const coords = {
             "GR": {x: 50, y: 50}, "CY": {x: 60, y: 45}, "SA": {x: 40, y: 75},
             "LA": {x: 80, y: 55}, "PE": {x: 90, y: 30}, "OR": {x: 55, y: 20},
@@ -173,11 +191,12 @@
             const user = document.getElementById('loginUser').value;
             const pass = document.getElementById('loginPass').value;
             if(user && pass === "azol123") {
-                document.getElementById('btnAuth').innerHTML = `<span class="text-emerald-400 mr-2">●</span> ${user.toUpperCase()}`;
+                document.getElementById('statusUser').innerText = user.toUpperCase();
+                document.getElementById('btnAuth').innerText = "CONTA: " + user.toUpperCase();
                 toggleModal('modalLogin');
-                alert("Acesso autorizado, bem-vindo " + user);
+                alert("Bem-vindo ao cockpit, " + user);
             } else {
-                alert("Erro de autenticação! Verifique a senha.");
+                alert("Acesso Negado! Senha incorreta.");
             }
         }
 
@@ -186,17 +205,15 @@
             const d = document.getElementById('inpDestino').value;
             const mult = parseFloat(document.getElementById('inpClasse').value);
             
-            if(!o || !d || o === d) { alert("Configure uma rota válida."); return; }
+            if(!o || !d || o === d) { alert("Selecione uma rota válida entre ilhas."); return; }
 
-            // Cálculo dinâmico de distância e preço
             const dist = Math.sqrt(Math.pow(coords[d].x - coords[o].x, 2) + Math.pow(coords[d].y - coords[o].y, 2));
-            const base = 550;
-            const valor = (base + (dist * 25)) * mult;
+            const valor = (600 + (dist * 30)) * mult;
 
             document.getElementById('resOrigem').innerText = o;
             document.getElementById('resDestino').innerText = d;
             document.getElementById('resPreco').innerText = valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-            document.getElementById('resPortao').innerText = "G" + (Math.floor(Math.random()*12)+1).toString().padStart(2, '0');
+            document.getElementById('resPortao').innerText = "G" + (Math.floor(Math.random()*15)+1).toString().padStart(2, '0');
             
             const sel = document.getElementById('inpClasse');
             document.getElementById('resClasseNome').innerText = sel.options[sel.selectedIndex].text.toUpperCase();
@@ -212,10 +229,10 @@
         function scrollPara(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
         
         function copiarChat() {
-            const msg = `✈️ [AZOL] Embarque: ${document.getElementById('resOrigem').innerText}➔${document.getElementById('resDestino').innerText} | Portão: ${document.getElementById('resPortao').innerText} | Ticket: ${document.getElementById('resCode').innerText}`;
+            const msg = `✈️ [AZOL] Ticket: ${document.getElementById('resCode').innerText} | Rota: ${document.getElementById('resOrigem').innerText}➔${document.getElementById('resDestino').innerText} | Valor: ${document.getElementById('resPreco').innerText}`;
             navigator.clipboard.writeText(msg);
-            alert("✅ Mensagem copiada para o chat do PTFS!");
+            alert("✅ Chamada de voz copiada!");
         }
     </script>
 </body>
-</html>
+                            </html>
