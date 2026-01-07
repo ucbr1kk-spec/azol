@@ -3,216 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | Sistema de Operações PTFS</title>
+    <title>Azol Linhas Aéreas | Premium Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .gradient-brand { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
-        .status-dot { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfcfd; }
+        .gradient-brand { background: linear-gradient(135deg, #002855 0%, #00509d 100%); }
         .boarding-pass-font { font-family: 'JetBrains Mono', monospace; }
-        /* Esconde a barra de rolagem mas mantém funcionalidade */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #003566; border-radius: 10px; }
+        .status-blink { animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .glass-dark { background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(15px); }
+        .card-shadow { box-shadow: 0 30px 60px -15px rgba(0,0,0,0.1); }
+        @media print { .no-print { display: none; } }
     </style>
 </head>
-<body class="bg-[#f0f4f8] text-slate-900">
+<body class="text-slate-900 overflow-x-hidden">
 
-    <div class="bg-[#ffc300] py-1.5 text-center text-[10px] font-black uppercase tracking-[0.2em] text-[#001d3d]">
-        Rede Operacional Azol: <span class="status-dot inline-block w-2 h-2 bg-green-600 rounded-full ml-1"></span> LIVE NO PTFS
+    <div class="bg-[#ffc300] py-1.5 text-center text-[10px] font-black uppercase tracking-[0.2em] text-[#001d3d] no-print">
+        AZOL NETWORK: <span class="status-blink">●</span> LIVE ON PTFS <span class="mx-3 opacity-30">|</span> 
+        PROMO JANEIRO ATIVA <span class="mx-3 opacity-30">|</span> 
+        <span id="relogio-sistema">00:00:00</span>
     </div>
 
-    <header class="sticky top-0 z-50 glass border-b border-gray-200">
-        <div class="container mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
-                <div class="bg-[#003566] p-2 rounded-lg shadow-lg">
-                    <svg class="w-6 h-6 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.19c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.19c.31-.17.69-.17 1 0l7.97 4.19c.32.17.53.5.53.88v9z"/></svg>
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-100 no-print">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="location.reload()">
+                <div class="gradient-brand p-2.5 rounded-2xl shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-2xl tracking-tighter text-[#001d3d]">AZOL</h1>
-                    <p class="text-[9px] font-bold text-sky-600 uppercase tracking-[0.3em] leading-none">Linhas Aéreas</p>
+                    <h1 class="font-extrabold text-2xl tracking-tighter text-[#001d3d] leading-none">AZOL</h1>
+                    <p class="text-[9px] font-bold text-blue-600 uppercase tracking-widest mt-1 italic">World Class Simulation</p>
                 </div>
             </div>
             
-            <nav class="hidden md:flex gap-6">
-                <button onclick="scrollPara('secao-voos')" class="text-sm font-bold text-slate-600 hover:text-sky-600">Painel de Voos</button>
-                <button onclick="scrollPara('secao-frota')" class="text-sm font-bold text-slate-600 hover:text-sky-600">Nossa Frota</button>
-            </nav>
-
-            <button onclick="alertaFuncional('Check-in')" class="bg-[#003566] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition shadow-lg">Área do Piloto</button>
+            <div class="flex items-center gap-8">
+                <nav class="hidden lg:flex gap-8 font-bold text-[10px] uppercase tracking-widest text-slate-500">
+                    <button onclick="scrollPara('ofertas')" class="hover:text-blue-600 transition">Ofertas</button>
+                    <button onclick="scrollPara('painel')" class="hover:text-blue-600 transition">Operações</button>
+                </nav>
+                <div id="auth-area">
+                    <button onclick="toggleModal('modalLogin')" class="bg-[#001d3d] text-white px-8 py-3 rounded-2xl font-bold text-xs hover:bg-blue-700 transition shadow-xl">ENTRAR</button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <section id="home" class="relative py-20 bg-[#001d3d] overflow-hidden">
-        <div class="absolute inset-0 opacity-30">
-            <img src="https://images.unsplash.com/photo-1544016768-982d1554f0b9?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover">
-        </div>
-        <div class="container mx-auto px-4 relative z-10 text-center text-white">
-            <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight">Sua rota começa aqui.</h2>
-            <div class="bg-white p-4 rounded-[2rem] shadow-2xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3">
-                <input id="inpOrigem" type="text" placeholder="Origem (Ex: Rockford)" class="p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-sky-500 font-bold text-slate-800">
-                <input id="inpDestino" type="text" placeholder="Destino (Ex: Cypress)" class="p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-sky-500 font-bold text-slate-800">
-                <button onclick="gerarTicket()" class="gradient-brand text-white font-black rounded-2xl hover:brightness-125 transition py-4">RESERVAR AGORA</button>
-            </div>
-            <div class="flex justify-center gap-6 mt-8">
-                <div onclick="alertaFuncional('Bagagem')" class="cursor-pointer flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-300 hover:text-white transition">
-                    <span>🧳 Bagagem</span>
-                </div>
-                <div onclick="alertaFuncional('Status')" class="cursor-pointer flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-300 hover:text-white transition">
-                    <span>🕒 Status</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="relative pt-16 pb-24 no-print bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-6">Inovação em voo virtual</span>
+            <h2 class="text-5xl md:text-7xl font-extrabold text-[#001d3d] tracking-tight mb-12">Sua jornada começa <br><span class="text-blue-600 italic">aqui.</span></h2>
 
-    <section id="secao-voos" class="py-16 container mx-auto px-4">
-        <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border border-white/10">
-            <h3 class="text-white font-black text-xl mb-8 flex items-center gap-2">
-                <span class="w-2 h-2 bg-sky-500 rounded-full animate-ping"></span>
-                LIVE TRAFFIC BOARD
-            </h3>
-            <div class="overflow-x-auto text-white">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="text-slate-500 text-[10px] uppercase border-b border-white/5">
-                            <th class="pb-4 px-2">Voo</th>
-                            <th class="pb-4">Rota</th>
-                            <th class="pb-4">Status</th>
-                            <th class="pb-4 text-right">Preço</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-white/5 hover:bg-white/5 transition cursor-pointer" onclick="preencherBusca('Greater Rockford', 'Cypress Terrace')">
-                            <td class="py-6 px-2 font-mono text-sky-400">AZ402</td>
-                            <td class="text-sm italic font-bold text-slate-300 italic italic">GRF ➔ CYT</td>
-                            <td><span class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-bold">EM ROTA</span></td>
-                            <td class="text-right text-emerald-400 font-bold font-mono">R$ 1.450,00</td>
-                        </tr>
-                        <tr class="border-b border-white/5 hover:bg-white/5 transition cursor-pointer" onclick="preencherBusca('Saint Barth', 'Rockford')">
-                            <td class="py-6 px-2 font-mono text-sky-400">AZ108</td>
-                            <td class="text-sm italic font-bold text-slate-300 italic italic">SBT ➔ GRF</td>
-                            <td><span class="bg-sky-500/10 text-sky-400 px-3 py-1 rounded-full text-[10px] font-bold">EMBARCANDO</span></td>
-                            <td class="text-right text-emerald-400 font-bold font-mono">R$ 1.120,00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section id="secao-frota" class="py-20 bg-white">
-        <div class="container mx-auto px-4 text-center mb-12">
-            <h3 class="text-3xl font-black text-[#001d3d]">Aeronaves Azol</h3>
-            <p class="text-slate-500 font-medium">Equipamentos de alta tecnologia para o mapa PTFS.</p>
-        </div>
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
-                <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
-                <h4 class="font-bold text-xl">Airbus A330neo</h4>
-                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Intercontinental</p>
-            </div>
-            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
-                <img src="https://cdn.flightsim.to/images/28/fss-embraer-195---azul-linhas-aereas---pr-axf-418113-1766888084-l0eLO.jpg?width=1400" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
-                <h4 class="font-bold text-xl">Embraer E195-E2</h4>
-                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Regional Brasil</p>
-            </div>
-            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
-                <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
-                <h4 class="font-bold text-xl">Cessna Caravan</h4>
-                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Operações Curtas</p>
-            </div>
-        </div>
-    </section>
-
-    <div id="modalTicket" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full overflow-hidden shadow-2xl">
-            <div class="gradient-brand p-8 text-white">
-                <div class="flex justify-between items-center mb-6">
-                    <h4 class="font-black text-xl italic italic">AZOL PASS</h4>
-                    <button onclick="fecharModal()" class="text-2xl opacity-50 hover:opacity-100">&times;</button>
-                </div>
-                <div class="flex justify-between items-center boarding-pass-font text-center">
-                    <div>
-                        <p class="text-[8px] opacity-60">ORIGEM</p>
-                        <p id="tkOrigem" class="text-3xl font-bold">---</p>
+            <div class="bg-white rounded-[3rem] p-4 card-shadow border border-slate-100 max-w-5xl mx-auto relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                    <div class="p-6 bg-slate-50 rounded-[2rem] text-left">
+                        <label class="text-[9px] font-black text-slate-400 uppercase block mb-1">Origem</label>
+                        <input id="inpOrigem" type="text" placeholder="Qual aeroporto?" class="w-full bg-transparent border-none focus:ring-0 font-bold text-lg text-slate-800 p-0">
                     </div>
-                    <div class="text-sky-400 opacity-30">➔</div>
-                    <div>
-                        <p class="text-[8px] opacity-60">DESTINO</p>
-                        <p id="tkDestino" class="text-3xl font-bold">---</p>
+                    <div class="p-6 bg-slate-50 rounded-[2rem] text-left">
+                        <label class="text-[9px] font-black text-slate-400 uppercase block mb-1">Destino</label>
+                        <input id="inpDestino" type="text" placeholder="Para onde?" class="w-full bg-transparent border-none focus:ring-0 font-bold text-lg text-slate-800 p-0">
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-[2rem] text-left">
+                        <label class="text-[9px] font-black text-slate-400 uppercase block mb-1">Classe</label>
+                        <select id="inpClasse" class="w-full bg-transparent border-none focus:ring-0 font-bold text-lg text-slate-800 p-0 cursor-pointer">
+                            <option>Econômica</option>
+                            <option>Executiva Azol</option>
+                            <option>First Class</option>
+                        </select>
+                    </div>
+                    <button onclick="gerarTicket()" class="gradient-brand text-white font-black rounded-[2rem] hover:brightness-110 transition-all text-sm tracking-widest">EMITIR BILHETE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ofertas" class="py-20 bg-slate-50 no-print">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h3 class="text-3xl font-black text-[#001d3d]">Ofertas de Janeiro</h3>
+                    <p class="text-slate-500 font-medium">Tarifas especiais atualizadas.</p>
+                </div>
+                <div class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold">PROMOÇÃO EXPIRA EM 12H</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div onclick="preencherBusca('Rockford', 'Saint Barth')" class="bg-white p-8 rounded-[2.5rem] border border-slate-100 hover:scale-[1.03] transition-all cursor-pointer shadow-sm group">
+                    <p class="text-[10px] font-black text-blue-600 mb-2 uppercase">Mais Vendido</p>
+                    <h4 class="text-xl font-bold mb-4">Rockford ➔ Barth</h4>
+                    <p class="text-4xl font-black text-[#001d3d] mb-6">R$ 1.250</p>
+                    <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition">Ver detalhes ➔</span>
+                </div>
+                <div onclick="preencherBusca('Tokyo', 'Cypress')" class="bg-white p-8 rounded-[2.5rem] border border-slate-100 hover:scale-[1.03] transition-all cursor-pointer shadow-sm group">
+                    <p class="text-[10px] font-black text-emerald-600 mb-2 uppercase">Oferta Relâmpago</p>
+                    <h4 class="text-xl font-bold mb-4">Tokyo ➔ Cypress</h4>
+                    <p class="text-4xl font-black text-[#001d3d] mb-6">R$ 2.190</p>
+                    <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition">Ver detalhes ➔</span>
+                </div>
+                <div onclick="preencherBusca('London', 'Larnaca')" class="bg-white p-8 rounded-[2.5rem] border border-slate-100 hover:scale-[1.03] transition-all cursor-pointer shadow-sm group">
+                    <p class="text-[10px] font-black text-amber-600 mb-2 uppercase">Classe Executiva</p>
+                    <h4 class="text-xl font-bold mb-4">London ➔ Larnaca</h4>
+                    <p class="text-4xl font-black text-[#001d3d] mb-6">R$ 3.050</p>
+                    <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition">Ver detalhes ➔</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="painel" class="py-20 no-print">
+        <div class="container mx-auto px-6">
+            <div class="bg-slate-950 rounded-[3.5rem] p-12 text-white shadow-3xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-12 opacity-10">
+                    <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16l-8-8V3.5c0-.83-.67-1.5-1.5-1.5S8 2.67 8 3.5V8l-8 8h-2v2h2l8-2.5V21l-2 1.5V24l3.5-1 3.5 1v-1.5L13 21v-5.5l8 2.5h2v-2z"/></svg>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                        <h3 class="text-3xl font-black flex items-center gap-4">
+                            <span class="w-3 h-3 bg-blue-500 rounded-full status-blink"></span> LIVE TRAFFIC BOARD
+                        </h3>
+                        <p class="font-mono text-[10px] text-slate-500">RESET EM: <span id="painel-timer" class="text-white">35:00</span></p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <tbody id="lista-voos" class="divide-y divide-white/10 font-bold">
+                                </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="p-8 space-y-4">
-                <div class="flex justify-between font-bold text-xs uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-4">
-                    <span>Preço: <span id="tkPreco" class="text-emerald-600 block text-lg">---</span></span>
-                    <span class="text-right">Classe: <span class="text-[#001d3d] block text-lg">Premium</span></span>
+        </div>
+    </section>
+
+    <div id="modalLogin" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 glass-dark no-print">
+        <div class="bg-white rounded-[3rem] p-12 max-w-sm w-full">
+            <h4 class="text-3xl font-black text-[#001d3d] mb-2 text-center">Login</h4>
+            <p class="text-slate-400 text-sm text-center mb-8 font-medium">Acesse seu painel de passageiro.</p>
+            <input id="userName" type="text" placeholder="Nome de Usuário" class="w-full p-5 bg-slate-50 rounded-2xl mb-4 border-none focus:ring-2 focus:ring-blue-500 font-bold">
+            <button onclick="realizarLogin()" class="w-full py-5 gradient-brand text-white font-black rounded-2xl shadow-xl">ACESSAR CONTA</button>
+            <button onclick="toggleModal('modalLogin')" class="w-full mt-4 text-xs font-bold text-slate-400 uppercase">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modalTicket" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 glass-dark no-print">
+        <div class="bg-white rounded-[3rem] max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="gradient-brand p-10 text-white text-center relative">
+                <button onclick="toggleModal('modalTicket')" class="absolute top-6 right-6 text-2xl opacity-40 hover:opacity-100">&times;</button>
+                <div class="flex justify-between items-center px-4 boarding-pass-font">
+                    <div class="text-left">
+                        <p class="text-[8px] opacity-40 uppercase mb-1 font-bold">From</p>
+                        <h5 id="tkOrigem" class="text-4xl font-black">---</h5>
+                    </div>
+                    <div class="text-sky-400 opacity-20 text-3xl italic">➔</div>
+                    <div class="text-right">
+                        <p class="text-[8px] opacity-40 uppercase mb-1 font-bold">To</p>
+                        <h5 id="tkDestino" class="text-4xl font-black">---</h5>
+                    </div>
                 </div>
-                <div class="flex flex-col items-center py-4">
-                    <img id="qrCode" src="" class="w-40 h-40 mix-blend-multiply border-4 border-slate-50 p-2">
-                    <p class="text-[8px] font-mono text-slate-400 mt-4 tracking-[0.4em]">VERIFIED BY AZOL PTFS SYSTEM</p>
+            </div>
+            
+            <div class="p-10 space-y-8">
+                <div class="grid grid-cols-2 gap-8 border-b border-slate-50 pb-8 font-bold text-xs">
+                    <div><p class="text-slate-300 uppercase mb-1">Portão</p><p id="tkPortao" class="text-2xl text-blue-600 italic">01</p></div>
+                    <div class="text-right"><p class="text-slate-300 uppercase mb-1">Código Chat</p><p id="tkCode" class="text-2xl text-slate-900 boarding-pass-font">AZ-000</p></div>
                 </div>
-                <button onclick="window.print()" class="w-full py-4 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest">Imprimir Voucher</button>
+                
+                <div class="flex flex-col items-center">
+                    <div class="bg-slate-50 p-4 rounded-3xl border border-slate-100 mb-4">
+                        <img id="qrCode" src="" class="w-32 h-32 mix-blend-multiply opacity-80">
+                    </div>
+                    <p id="tkPreco" class="text-2xl font-black text-emerald-600">---</p>
+                    <p class="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-2">Voucher Digital Verificado</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="copiarMensagem()" class="flex-1 py-4 bg-slate-50 text-slate-600 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-blue-50 transition">Copiar para Chat</button>
+                    <button onclick="window.print()" class="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold text-[10px] uppercase tracking-widest shadow-lg">Imprimir</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <footer class="py-20 bg-white border-t border-slate-100 text-center no-print">
+        <h4 class="font-black text-3xl text-[#001d3d] italic mb-6">AZOL</h4>
+        <div class="flex justify-center gap-10 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-12">
+            <a href="#" class="hover:text-blue-600">Suporte</a>
+            <a href="#" class="hover:text-blue-600">Carreiras</a>
+            <a href="#" class="hover:text-blue-600">Privacidade</a>
+        </div>
+        <p class="text-[9px] font-bold text-slate-300 uppercase tracking-[0.6em]">© 2026 AZOL AIRLINES PROFESSIONAL PORTAL</p>
+    </footer>
+
     <script>
-        // 1. Lógica do Ticket e Preço Aleatório
-        function gerarTicket() {
-            const origem = document.getElementById('inpOrigem').value;
-            const destino = document.getElementById('inpDestino').value;
+        const cidades = ["Rockford", "Cypress", "Saint Barth", "Larnaca", "Perth", "Tokyo", "London", "Paris", "Sydney", "New York"];
+        let timerPainel = 35 * 60;
 
-            if(!origem || !destino) {
-                alert("❌ Erro no Sistema: Preencha a origem e o destino para decolar!");
-                return;
-            }
-
-            // Gera preço aleatório entre 1.100 e 3.400 reais
-            const precoRandom = (Math.random() * (3400 - 1100) + 1100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            
-            // Atribui valores ao Modal
-            document.getElementById('tkOrigem').innerText = origem.substring(0,3).toUpperCase();
-            document.getElementById('tkDestino').innerText = destino.substring(0,3).toUpperCase();
-            document.getElementById('tkPreco').innerText = precoRandom;
-            
-            // Gera QR Code Dinâmico (API Google Charts/QRServer)
-            const qrConteudo = `AZOL-PASS-${origem}-${destino}-${precoRandom}`;
-            document.getElementById('qrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrConteudo)}`;
-
-            // Exibe o Modal
-            document.getElementById('modalTicket').classList.remove('hidden');
+        // LOGIN DO CLIENTE
+        function realizarLogin() {
+            const nome = document.getElementById('userName').value;
+            if(nome.length < 3) { alert("Nome inválido!"); return; }
+            document.getElementById('auth-area').innerHTML = `
+                <div class="flex items-center gap-4 bg-slate-50 p-2 pr-6 rounded-2xl border border-slate-100">
+                    <div class="w-10 h-10 gradient-brand rounded-xl flex items-center justify-center font-bold text-white shadow-lg">${nome[0].toUpperCase()}</div>
+                    <div class="text-left leading-none">
+                        <p class="text-[8px] font-black text-slate-400 uppercase mb-1">Membro Gold</p>
+                        <p class="text-xs font-bold text-slate-800 uppercase">${nome}</p>
+                    </div>
+                </div>`;
+            toggleModal('modalLogin');
         }
 
-        // 2. Atalho ao clicar na tabela de voos
+        // EMISSÃO DE PASSAGEM
+        function gerarTicket() {
+            const o = document.getElementById('inpOrigem').value;
+            const d = document.getElementById('inpDestino').value;
+            const c = document.getElementById('inpClasse').value;
+
+            if(!o || !d) { alert("Informe a rota para prosseguir."); return; }
+
+            const preco = (Math.random() * (3500 - 1100) + 1100).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            const code = "AZ-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+            const portao = Math.floor(Math.random() * 12) + 1;
+
+            document.getElementById('tkOrigem').innerText = o.substring(0,3).toUpperCase();
+            document.getElementById('tkDestino').innerText = d.substring(0,3).toUpperCase();
+            document.getElementById('tkPreco').innerText = preco;
+            document.getElementById('tkPortao').innerText = portao.toString().padStart(2, '0');
+            document.getElementById('tkCode').innerText = code;
+            document.getElementById('qrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${code}`;
+
+            toggleModal('modalTicket');
+        }
+
+        // COPIAR PARA O CHAT DO PTFS
+        function copiarMensagem() {
+            const o = document.getElementById('tkOrigem').innerText;
+            const d = document.getElementById('tkDestino').innerText;
+            const p = document.getElementById('tkPortao').innerText;
+            const c = document.getElementById('tkCode').innerText;
+            const texto = `✈️ [AZOL] Embarque Confirmado: ${o} ➔ ${d} | Portão ${p} | Código de Validação: ${c} | Voe Azol!`;
+            navigator.clipboard.writeText(texto);
+            alert("Texto copiado! Cole agora no chat do jogo.");
+        }
+
+        // PAINEL DE OPERAÇÕES DINÂMICO
+        function atualizarPainel() {
+            const container = document.getElementById('lista-voos');
+            container.innerHTML = '';
+            for(let i=0; i<6; i++) {
+                const o = cidades[Math.floor(Math.random()*cidades.length)];
+                const d = cidades.filter(x => x!==o)[Math.floor(Math.random()*(cidades.length-1))];
+                container.innerHTML += `
+                    <tr class="group hover:bg-white/5 transition cursor-pointer" onclick="preencherBusca('${o}', '${d}')">
+                        <td class="py-6 text-sky-400 font-mono italic">AZ${Math.floor(Math.random()*900+100)}</td>
+                        <td class="text-slate-400 text-sm tracking-tight italic">${o} ➔ ${d}</td>
+                        <td class="text-right text-emerald-400">R$ ${(Math.random()*2000+1100).toFixed(2)}</td>
+                    </tr>`;
+            }
+        }
+
+        // UTILITÁRIOS
+        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+        function scrollPara(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
         function preencherBusca(o, d) {
             document.getElementById('inpOrigem').value = o;
             document.getElementById('inpDestino').value = d;
-            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 3. Funções de Navegação e Alertas Profissionais
-        function scrollPara(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
+        // RELÓGIO E TIMERS
+        setInterval(() => {
+            document.getElementById('relogio-sistema').innerText = new Date().toLocaleTimeString();
+            timerPainel--;
+            const m = Math.floor(timerPainel/60), s = timerPainel%60;
+            document.getElementById('painel-timer').innerText = `${m}:${s.toString().padStart(2,'0')}`;
+            if(timerPainel <= 0) { timerPainel = 35 * 60; atualizarPainel(); }
+        }, 1000);
 
-        function fecharModal() {
-            document.getElementById('modalTicket').classList.add('hidden');
-        }
-
-        function alertaFuncional(tipo) {
-            alert(`🛰️ Conectando ao Servidor PTFS...\nO serviço de [${tipo}] está sendo sincronizado com o mapa. Aguarde a decolagem.`);
-        }
-
-        // Fechar modal ao clicar no fundo preto
-        window.onclick = function(event) {
-            const modal = document.getElementById('modalTicket');
-            if (event.target == modal) fecharModal();
-        }
+        window.onload = atualizarPainel;
     </script>
-
 </body>
 </html>
