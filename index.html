@@ -5,217 +5,117 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Azol Linhas Aéreas</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  background:#f2f6fb;
-  color:#0b2545;
+body {
+  margin: 0;
+  background: #f4f6f8;
 }
 
-/* HEADER */
-header{
-  background:linear-gradient(90deg,#061a2f,#0a2a4a);
-  padding:16px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+/* HERO */
+.hero {
+  height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(0,80,160,0.75), rgba(0,40,90,0.85)),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcCkS-iRwVxBIqCL4r7M1nZUDEeH1OCRGbFRpktgzGXmH6gPOL0nkiNVF&s=10");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.logo{
-  font-size:26px;
-  font-weight:700;
-  color:#2dd4ff;
+/* CAIXA PRINCIPAL */
+.search-box {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
-.icons{
-  display:flex;
-  gap:14px;
-  font-size:22px;
-  color:white;
+/* TÍTULO */
+.search-box h1 {
+  margin: 0 0 8px;
+  color: #003a8f;
+  font-size: 28px;
 }
 
-/* BANNER */
-.banner{
-  position:relative;
-  height:300px;
-  overflow:hidden;
+.search-box p {
+  margin: 0 0 20px;
+  color: #555;
 }
 
-.banner img{
-  position:absolute;
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity 1s ease;
+/* FORM */
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.banner img.active{
-  opacity:1;
+.form input {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
-/* SEARCH CARD */
-.search-box{
-  background:white;
-  width:92%;
-  max-width:460px;
-  margin:-80px auto 30px;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 25px 60px rgba(0,0,0,.15);
+.form input:focus {
+  outline: none;
+  border-color: #0050a0;
 }
 
-.tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom:16px;
+/* BOTÃO */
+.form button {
+  grid-column: span 2;
+  padding: 16px;
+  background: #0050a0;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.tab{
-  padding:10px 14px;
-  border-radius:12px;
-  background:#e9f2ff;
-  font-size:14px;
-  font-weight:600;
+.form button:hover {
+  background: #003a8f;
 }
 
-.tab.active{
-  background:#2dd4ff;
-  color:#003049;
-}
-
-.search-box input{
-  width:100%;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:12px;
-  border:1px solid #dce6f2;
-  font-size:14px;
-}
-
-.search-box button{
-  width:100%;
-  padding:15px;
-  background:#0a2a4a;
-  color:white;
-  border:none;
-  border-radius:14px;
-  font-weight:700;
-  font-size:15px;
-}
-
-/* OFFERS */
-.section{
-  padding:20px;
-}
-
-.section h2{
-  margin-bottom:14px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:16px;
-}
-
-.card{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
-}
-
-.card img{
-  width:100%;
-  height:130px;
-  object-fit:cover;
-}
-
-.card p{
-  padding:12px;
-  font-weight:600;
-}
-
-/* FOOTER */
-footer{
-  background:#061a2f;
-  color:white;
-  padding:30px 20px;
-  text-align:center;
-  margin-top:40px;
+/* MOBILE */
+@media (max-width: 600px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+  .form button {
+    grid-column: span 1;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">Azol</div>
-  <div class="icons">☰ 👤</div>
-</header>
+<section class="hero">
+  <div class="search-box">
+    <h1>Passagens Aéreas Azol</h1>
+    <p>Encontre o melhor voo para o seu destino</p>
 
-<!-- BANNER -->
-<div class="banner">
-  <img class="active" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi84xQ64xiPQ3IbqZFCFGZZE75JsXS0JtAjOQ4scWIIX_2s4ztt4x6SdEt&s=10">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThTfFbukpSsZyGxugq80rvUiYQuYAsdOfK4B1nhbjLRONnSO42otUCmfM&s=10">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcCkS-iRwVxBIqCL4r7M1nZUDEeH1OCRGbFRpktgzGXmH6gPOL0nkiNVF&s=10">
-</div>
-
-<!-- SEARCH -->
-<div class="search-box">
-  <div class="tabs">
-    <div class="tab active">Voos</div>
-    <div class="tab">Hotéis</div>
-    <div class="tab">Pacotes</div>
-  </div>
-
-  <input placeholder="Origem">
-  <input placeholder="Destino">
-  <input type="date">
-  <button>Buscar passagens</button>
-</div>
-
-<!-- FROTA -->
-<div class="section">
-  <h2>Frota Azol</h2>
-  <div class="cards">
-    <div class="card">
-      <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg">
-      <p>Airbus A330neo</p>
-    </div>
-    <div class="card">
-      <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg">
-      <p>Airbus A320neo</p>
-    </div>
-    <div class="card">
-      <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg">
-      <p>Embraer E195-E2</p>
+    <div class="form">
+      <input type="text" placeholder="Origem">
+      <input type="text" placeholder="Destino">
+      <input type="date">
+      <input type="date">
+      <button>Buscar voos</button>
     </div>
   </div>
-</div>
-
-<footer>
-  © 2026 Azol Linhas Aéreas • Todos os direitos reservados
-</footer>
-
-<script>
-let imgs=document.querySelectorAll('.banner img');
-let i=0;
-setInterval(()=>{
-  imgs[i].classList.remove('active');
-  i=(i+1)%imgs.length;
-  imgs[i].classList.add('active');
-},4000);
-</script>
+</section>
 
 </body>
 </html>
