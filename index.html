@@ -3,199 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | PTFS Official Operations</title>
+    <title>Azol Linhas Aéreas | Sistema de Operações PTFS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .gradient-brand { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
-        .card-zoom:hover img { transform: scale(1.05); }
-        .route-glow { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5)); }
+        .status-dot { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .boarding-pass-font { font-family: 'JetBrains Mono', monospace; }
+        /* Esconde a barra de rolagem mas mantém funcionalidade */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #003566; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-[#f8fafc]">
+<body class="bg-[#f0f4f8] text-slate-900">
 
-    <div class="bg-[#ffc300] py-1 text-center text-[10px] font-bold uppercase tracking-widest text-[#001d3d]">
-        Status da Rede PTFS: Operacional | Próxima Atualização em 05:00
+    <div class="bg-[#ffc300] py-1.5 text-center text-[10px] font-black uppercase tracking-[0.2em] text-[#001d3d]">
+        Rede Operacional Azol: <span class="status-dot inline-block w-2 h-2 bg-green-600 rounded-full ml-1"></span> LIVE NO PTFS
     </div>
 
     <header class="sticky top-0 z-50 glass border-b border-gray-200">
         <div class="container mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-[#003566] p-2 rounded-lg shadow-inner">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
+                <div class="bg-[#003566] p-2 rounded-lg shadow-lg">
                     <svg class="w-6 h-6 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.19c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.19c.31-.17.69-.17 1 0l7.97 4.19c.32.17.53.5.53.88v9z"/></svg>
                 </div>
                 <div>
                     <h1 class="font-extrabold text-2xl tracking-tighter text-[#001d3d]">AZOL</h1>
-                    <p class="text-[9px] font-bold text-sky-600 uppercase tracking-[0.2em] leading-none">Linhas Aéreas</p>
+                    <p class="text-[9px] font-bold text-sky-600 uppercase tracking-[0.3em] leading-none">Linhas Aéreas</p>
                 </div>
             </div>
             
-            <nav class="hidden lg:flex gap-8 text-sm font-semibold text-[#003566]">
-                <a href="#home" class="hover:text-sky-500 transition">Início</a>
-                <a href="#mapa" class="hover:text-sky-500 transition">Rotas</a>
-                <a href="#frota" class="hover:text-sky-500 transition">Frota</a>
-                <a href="#servicos" class="hover:text-sky-500 transition">Serviços</a>
+            <nav class="hidden md:flex gap-6">
+                <button onclick="scrollPara('secao-voos')" class="text-sm font-bold text-slate-600 hover:text-sky-600">Painel de Voos</button>
+                <button onclick="scrollPara('secao-frota')" class="text-sm font-bold text-slate-600 hover:text-sky-600">Nossa Frota</button>
             </nav>
 
-            <button class="bg-[#003566] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-600 transition-all shadow-lg hover:shadow-sky-200">
-                Minha Conta
-            </button>
+            <button onclick="alertaFuncional('Check-in')" class="bg-[#003566] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition shadow-lg">Área do Piloto</button>
         </div>
     </header>
 
-    <section id="home" class="relative py-24 lg:py-32 overflow-hidden">
-        <div class="absolute inset-0 -z-10">
-            <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#001d3dbf] to-transparent"></div>
+    <section id="home" class="relative py-20 bg-[#001d3d] overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <img src="https://images.unsplash.com/photo-1544016768-982d1554f0b9?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover">
         </div>
-        
-        <div class="container mx-auto px-4">
-            <div class="max-w-2xl text-white">
-                <span class="bg-sky-500/20 text-sky-300 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-sky-500/30">Líder em Simulação Corporativa</span>
-                <h2 class="text-5xl lg:text-7xl font-extrabold mt-6 leading-tight">Conectando o <span class="text-sky-400 font-light italic">mundo virtual.</span></h2>
-                <p class="mt-6 text-lg text-gray-200 leading-relaxed max-w-lg">Opere nas rotas mais desafiadoras do PTFS com a segurança e o conforto da frota Azol. De Greater Rockford a lhas remotas.</p>
-                
-                <div class="mt-10 bg-white p-2 rounded-2xl shadow-2xl max-w-xl flex flex-col md:flex-row gap-2">
-                    <input type="text" placeholder="Origem (Ex: GR)" class="flex-1 p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-sky-500 text-slate-700 font-medium">
-                    <input type="text" placeholder="Destino" class="flex-1 p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-sky-500 text-slate-700 font-medium">
-                    <button class="gradient-brand text-white px-8 py-4 rounded-xl font-bold hover:brightness-125 transition">VOAR AGORA</button>
-                </div>
+        <div class="container mx-auto px-4 relative z-10 text-center text-white">
+            <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight">Sua rota começa aqui.</h2>
+            <div class="bg-white p-4 rounded-[2rem] shadow-2xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input id="inpOrigem" type="text" placeholder="Origem (Ex: Rockford)" class="p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-sky-500 font-bold text-slate-800">
+                <input id="inpDestino" type="text" placeholder="Destino (Ex: Cypress)" class="p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-sky-500 font-bold text-slate-800">
+                <button onclick="gerarTicket()" class="gradient-brand text-white font-black rounded-2xl hover:brightness-125 transition py-4">RESERVAR AGORA</button>
             </div>
-        </div>
-    </section>
-
-    <section id="mapa" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-3xl font-extrabold text-[#001d3d]">Malha Aérea PTFS</h3>
-                <div class="w-20 h-1.5 bg-sky-500 mx-auto mt-4 rounded-full"></div>
-                <p class="mt-4 text-slate-500 font-medium">Nossas operações cobrem 100% do arquipélago seguindo o mapa estratégico.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-8 bg-slate-100 p-4 rounded-[2rem] shadow-inner border border-gray-200">
-                    <img src="https://i.imgur.com/vHqY7Z8.png" alt="Mapa PTFS" class="w-full h-auto rounded-xl shadow-2xl route-glow transition hover:scale-[1.01]">
+            <div class="flex justify-center gap-6 mt-8">
+                <div onclick="alertaFuncional('Bagagem')" class="cursor-pointer flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-300 hover:text-white transition">
+                    <span>🧳 Bagagem</span>
                 </div>
-                <div class="lg:col-span-4 space-y-6">
-                    <div class="bg-[#003566] p-6 rounded-2xl text-white">
-                        <h4 class="font-bold text-xl mb-4">Hubs de Operação</h4>
-                        <ul class="space-y-4 text-sm opacity-90">
-                            <li class="flex items-center gap-3 border-b border-white/10 pb-2">
-                                <span class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold italic">GR</span>
-                                Greater Rockford - Hub Internacional
-                            </li>
-                            <li class="flex items-center gap-3 border-b border-white/10 pb-2">
-                                <span class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-bold italic">CY</span>
-                                Cypress Terrace - Base Regional
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center font-bold italic">SA</span>
-                                Saint Barthélemy - Operação Curta
-                            </li>
-                        </ul>
-                    </div>
+                <div onclick="alertaFuncional('Status')" class="cursor-pointer flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-300 hover:text-white transition">
+                    <span>🕒 Status</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="frota" class="py-20 bg-slate-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h3 class="text-3xl font-extrabold text-[#001d3d]">Frota Azol</h3>
-                    <p class="text-slate-500">Aeronaves configuradas para o máximo realismo.</p>
-                </div>
-                <div class="hidden md:block">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Tecnologia & Segurança</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">LONG HAUL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Airbus A330neo</h4>
-                        <p class="text-sm text-slate-500 mt-2">Capacidade máxima e autonomia para travessias entre continentes.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://cdn.flightsim.to/images/28/fss-embraer-195---azul-linhas-aereas---pr-axf-418113-1766888084-l0eLO.jpg?width=1400" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-emerald-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">REGIONAL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Embraer E195-E2</h4>
-                        <p class="text-sm text-slate-500 mt-2">A conexão perfeita entre hubs brasileiros e aeroportos médios.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-amber-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">SHORT HAUL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Cessna Caravan</h4>
-                        <p class="text-sm text-slate-500 mt-2">Especialista em pistas de terra e acessos remotos no PTFS.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLtQCpPf_kydA979VuwQOhLfXPnxRtVgGflqAXqE7LAqLU94hMPgKhwT0&s=10" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">MAINLINE</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Airbus A320neo</h4>
-                        <p class="text-sm text-slate-500 mt-2">Equilíbrio perfeito entre eficiência e número de passageiros.</p>
-                    </div>
-                </div>
+    <section id="secao-voos" class="py-16 container mx-auto px-4">
+        <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border border-white/10">
+            <h3 class="text-white font-black text-xl mb-8 flex items-center gap-2">
+                <span class="w-2 h-2 bg-sky-500 rounded-full animate-ping"></span>
+                LIVE TRAFFIC BOARD
+            </h3>
+            <div class="overflow-x-auto text-white">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-slate-500 text-[10px] uppercase border-b border-white/5">
+                            <th class="pb-4 px-2">Voo</th>
+                            <th class="pb-4">Rota</th>
+                            <th class="pb-4">Status</th>
+                            <th class="pb-4 text-right">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition cursor-pointer" onclick="preencherBusca('Greater Rockford', 'Cypress Terrace')">
+                            <td class="py-6 px-2 font-mono text-sky-400">AZ402</td>
+                            <td class="text-sm italic font-bold text-slate-300 italic italic">GRF ➔ CYT</td>
+                            <td><span class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-bold">EM ROTA</span></td>
+                            <td class="text-right text-emerald-400 font-bold font-mono">R$ 1.450,00</td>
+                        </tr>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition cursor-pointer" onclick="preencherBusca('Saint Barth', 'Rockford')">
+                            <td class="py-6 px-2 font-mono text-sky-400">AZ108</td>
+                            <td class="text-sm italic font-bold text-slate-300 italic italic">SBT ➔ GRF</td>
+                            <td><span class="bg-sky-500/10 text-sky-400 px-3 py-1 rounded-full text-[10px] font-bold">EMBARCANDO</span></td>
+                            <td class="text-right text-emerald-400 font-bold font-mono">R$ 1.120,00</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#001d3d] text-white pt-20 pb-10">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16 border-b border-white/5 pb-16">
-            <div>
-                <h4 class="font-extrabold text-3xl mb-6">AZOL</h4>
-                <p class="text-slate-400 leading-relaxed text-sm">O maior portal de operações virtuais para entusiastas de aviação no PTFS. Credibilidade e paixão por voar.</p>
+    <section id="secao-frota" class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center mb-12">
+            <h3 class="text-3xl font-black text-[#001d3d]">Aeronaves Azol</h3>
+            <p class="text-slate-500 font-medium">Equipamentos de alta tecnologia para o mapa PTFS.</p>
+        </div>
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
+                <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
+                <h4 class="font-bold text-xl">Airbus A330neo</h4>
+                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Intercontinental</p>
             </div>
-            <div class="grid grid-cols-2 gap-8">
-                <div>
-                    <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Suporte</h5>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" class="hover:text-white transition">Check-in</a></li>
-                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition">Regras</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Institucional</h5>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" class="hover:text-white transition">Nossa Frota</a></li>
-                        <li><a href="#" class="hover:text-white transition">Carreiras</a></li>
-                    </ul>
-                </div>
+            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
+                <img src="https://cdn.flightsim.to/images/28/fss-embraer-195---azul-linhas-aereas---pr-axf-418113-1766888084-l0eLO.jpg?width=1400" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
+                <h4 class="font-bold text-xl">Embraer E195-E2</h4>
+                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Regional Brasil</p>
             </div>
-            <div>
-                <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Assine a Newsletter</h5>
-                <div class="flex bg-white/5 p-1 rounded-xl">
-                    <input type="email" placeholder="Seu e-mail" class="bg-transparent border-none flex-1 p-3 text-sm focus:ring-0">
-                    <button class="bg-sky-500 px-4 py-2 rounded-lg text-xs font-extrabold uppercase">OK</button>
-                </div>
+            <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition cursor-help">
+                <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg" class="w-full h-48 object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
+                <h4 class="font-bold text-xl">Cessna Caravan</h4>
+                <p class="text-xs font-bold text-sky-600 uppercase mt-1">Operações Curtas</p>
             </div>
         </div>
-        <div class="container mx-auto px-4 mt-10 text-center text-[10px] text-slate-500 font-medium tracking-widest uppercase">
-            © 2026 AZOL LINHAS AÉREAS | PROJETO PARA PORTFÓLIO (PTFS VIRTUAL)
+    </section>
+
+    <div id="modalTicket" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-white rounded-[2rem] max-w-sm w-full overflow-hidden shadow-2xl">
+            <div class="gradient-brand p-8 text-white">
+                <div class="flex justify-between items-center mb-6">
+                    <h4 class="font-black text-xl italic italic">AZOL PASS</h4>
+                    <button onclick="fecharModal()" class="text-2xl opacity-50 hover:opacity-100">&times;</button>
+                </div>
+                <div class="flex justify-between items-center boarding-pass-font text-center">
+                    <div>
+                        <p class="text-[8px] opacity-60">ORIGEM</p>
+                        <p id="tkOrigem" class="text-3xl font-bold">---</p>
+                    </div>
+                    <div class="text-sky-400 opacity-30">➔</div>
+                    <div>
+                        <p class="text-[8px] opacity-60">DESTINO</p>
+                        <p id="tkDestino" class="text-3xl font-bold">---</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-8 space-y-4">
+                <div class="flex justify-between font-bold text-xs uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-4">
+                    <span>Preço: <span id="tkPreco" class="text-emerald-600 block text-lg">---</span></span>
+                    <span class="text-right">Classe: <span class="text-[#001d3d] block text-lg">Premium</span></span>
+                </div>
+                <div class="flex flex-col items-center py-4">
+                    <img id="qrCode" src="" class="w-40 h-40 mix-blend-multiply border-4 border-slate-50 p-2">
+                    <p class="text-[8px] font-mono text-slate-400 mt-4 tracking-[0.4em]">VERIFIED BY AZOL PTFS SYSTEM</p>
+                </div>
+                <button onclick="window.print()" class="w-full py-4 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest">Imprimir Voucher</button>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <script>
+        // 1. Lógica do Ticket e Preço Aleatório
+        function gerarTicket() {
+            const origem = document.getElementById('inpOrigem').value;
+            const destino = document.getElementById('inpDestino').value;
+
+            if(!origem || !destino) {
+                alert("❌ Erro no Sistema: Preencha a origem e o destino para decolar!");
+                return;
+            }
+
+            // Gera preço aleatório entre 1.100 e 3.400 reais
+            const precoRandom = (Math.random() * (3400 - 1100) + 1100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            // Atribui valores ao Modal
+            document.getElementById('tkOrigem').innerText = origem.substring(0,3).toUpperCase();
+            document.getElementById('tkDestino').innerText = destino.substring(0,3).toUpperCase();
+            document.getElementById('tkPreco').innerText = precoRandom;
+            
+            // Gera QR Code Dinâmico (API Google Charts/QRServer)
+            const qrConteudo = `AZOL-PASS-${origem}-${destino}-${precoRandom}`;
+            document.getElementById('qrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrConteudo)}`;
+
+            // Exibe o Modal
+            document.getElementById('modalTicket').classList.remove('hidden');
+        }
+
+        // 2. Atalho ao clicar na tabela de voos
+        function preencherBusca(o, d) {
+            document.getElementById('inpOrigem').value = o;
+            document.getElementById('inpDestino').value = d;
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 3. Funções de Navegação e Alertas Profissionais
+        function scrollPara(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function fecharModal() {
+            document.getElementById('modalTicket').classList.add('hidden');
+        }
+
+        function alertaFuncional(tipo) {
+            alert(`🛰️ Conectando ao Servidor PTFS...\nO serviço de [${tipo}] está sendo sincronizado com o mapa. Aguarde a decolagem.`);
+        }
+
+        // Fechar modal ao clicar no fundo preto
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalTicket');
+            if (event.target == modal) fecharModal();
+        }
+    </script>
 
 </body>
-                                                                                         </html>
+</html>
