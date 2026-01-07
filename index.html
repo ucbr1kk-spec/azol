@@ -1,135 +1,151 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <title>Azol Linhas Aéreas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-/* Reset e fonte */
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Montserrat',sans-serif; background:#f5f7fa; color:#333; line-height:1.5;}
 
-/* Header */
-header {
-  position: fixed;
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#f4f6f9;
+  color:#333;
+}
+
+/* HEADER */
+header{
+  position:fixed;
   top:0;
   width:100%;
-  background: linear-gradient(135deg,#0066cc,#003366);
+  background:linear-gradient(135deg,#003366,#0066cc);
   color:#fff;
-  padding:20px 40px;
+  padding:18px 40px;
   display:flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index:1000;
-  box-shadow:0 3px 10px rgba(0,0,0,0.2);
-}
-header h1 {font-size:1.8em;}
-nav a {color:#fff; text-decoration:none; margin-left:25px; font-weight:600; transition:0.3s;}
-nav a:hover {opacity:0.8;}
-
-/* Hero Banner Rotativo */
-.hero {
-  position: relative;
-  height:500px;
-  display:flex;
-  flex-direction: column;
-  justify-content:center;
+  justify-content:space-between;
   align-items:center;
-  text-align:center;
-  padding:0 20px;
-  margin-top:80px;
-  overflow: hidden;
+  z-index:1000;
 }
-.hero img {
-  position: absolute;
-  top:0; left:0;
+header h1{font-size:1.7em}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:25px;
+  font-weight:600;
+}
+
+/* HERO */
+.hero{
+  margin-top:80px;
+  height:520px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+.hero img{
+  position:absolute;
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center center;
   opacity:0;
-  transition: opacity 1s ease-in-out;
-  z-index: -1;
+  transition:opacity 1.2s;
 }
-.hero h2, .hero p {position: relative; z-index:1; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6);}
-.hero h2 {font-size:2.8em; margin-bottom:15px;}
-.hero p {font-size:1.2em; max-width:750px; line-height:1.5; margin-bottom:20px;}
-.hero .btn-group {position:relative; z-index:1; display:flex; gap:15px;}
-.hero .btn {
-  padding:12px 20px;
-  background:#ffdd00;
-  color:#003366;
-  font-weight:700;
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:#fff;
+  max-width:900px;
+}
+.hero h2{font-size:3em;margin-bottom:15px}
+.hero p{font-size:1.2em;margin-bottom:25px}
+.hero button{
+  padding:14px 30px;
+  font-size:1em;
   border:none;
   border-radius:8px;
-  text-decoration:none;
-  font-size:1em;
-  cursor:pointer;
-  transition:0.3s;
-}
-.hero .btn:hover {background:#ffd500;}
-
-/* Container principal */
-.container {max-width:1200px; margin:50px auto 60px auto; padding:0 20px;}
-
-/* Títulos de seção */
-.section-title {
-  text-align:center;
-  margin-bottom:25px;
-  color:#003366;
-  font-size:2em;
+  background:#ffdd00;
   font-weight:700;
+  cursor:pointer;
 }
 
-/* Cards modernos */
-.cards {
+/* SEÇÕES */
+section{padding:70px 20px}
+.section-title{
+  text-align:center;
+  font-size:2.3em;
+  color:#003366;
+  margin-bottom:40px;
+}
+
+/* BUSCA */
+.search-box{
+  max-width:1100px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+.search-box input, .search-box select, .search-box button{
+  padding:15px;
+  font-size:1em;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+.search-box button{
+  background:#0066cc;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* CARDS */
+.cards{
+  max-width:1200px;
+  margin:auto;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
-  margin-bottom:50px;
+  gap:30px;
 }
-.card {
+.card{
   background:#fff;
-  border-radius:15px;
+  border-radius:18px;
   padding:25px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
-.card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.15);
-}
-.card img {
+.card img{
   width:100%;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:15px;
 }
-.card h3 {color:#0066cc; margin-bottom:12px; font-size:1.3em;}
-.card p {color:#555; font-size:1em; line-height:1.5;}
+.card h3{color:#0066cc;margin-bottom:10px}
 
-/* Footer */
-footer {
+/* FUNDO DIF */
+.alt{background:#eef3f9}
+
+/* FOOTER */
+footer{
   background:#003366;
   color:#fff;
   text-align:center;
-  padding:20px;
-  font-size:14px;
-  margin-top:40px;
-  border-radius:5px 5px 0 0;
+  padding:25px;
 }
 
-/* Responsivo */
-@media(max-width:500px){
-  header h1{font-size:1.4em;}
-  nav a{margin-left:15px; font-size:0.9em;}
-  .hero h2{font-size:2.2em;}
-  .hero p{font-size:1em;}
-  .hero .btn {font-size:0.9em;}
-  .cards {gap:15px;}
+/* RESPONSIVO */
+@media(max-width:600px){
+  .hero h2{font-size:2.2em}
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -137,106 +153,90 @@ footer {
 <nav>
 <a href="#">Passagens</a>
 <a href="#">Check-in</a>
-<a href="#">Voos</a>
+<a href="#">Frota</a>
 <a href="#">Contato</a>
 </nav>
 </header>
 
-<!-- BANNER ROTATIVO -->
-<section class="hero">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi84xQ64xiPQ3IbqZFCFGZZE75JsXS0JtAjOQ4scWIIX_2s4ztt4x6SdEt&s=10" alt="Banner 1">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThTfFbukpSsZyGxugq80rvUiYQuYAsdOfK4B1nhbjLRONnSO42otUCmfM&s=10" alt="Banner 2">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcCkS-iRwVxBIqCL4r7M1nZUDEeH1OCRGbFRpktgzGXmH6gPOL0nkiNVF&s=10" alt="Banner 3">
-  <h2>Voe com Conforto e Segurança</h2>
-  <p>Descubra nossos destinos exclusivos e aproveite a frota moderna da Azol Linhas Aéreas.</p>
-  <div class="btn-group">
-    <a class="btn" href="#">Comprar Passagem</a>
-    <a class="btn" href="#">Check-in</a>
-  </div>
-</section>
+<!-- HERO -->
+<div class="hero">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi84xQ64xiPQ3IbqZFCFGZZE75JsXS0JtAjOQ4scWIIX_2s4ztt4x6SdEt&s=10">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThTfFbukpSsZyGxugq80rvUiYQuYAsdOfK4B1nhbjLRONnSO42otUCmfM&s=10">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLcCkS-iRwVxBIqCL4r7M1nZUDEeH1OCRGbFRpktgzGXmH6gPOL0nkiNVF&s=10">
 
-<div class="container">
-<!-- Frota em destaque -->
+<div class="hero-content">
+<h2>O mundo mais perto de você</h2>
+<p>Conectando destinos com conforto, segurança e excelência.</p>
+<button>Buscar voos</button>
+</div>
+</div>
+
+<!-- BUSCA -->
 <section>
-<h2 class="section-title">Frota em Destaque</h2>
-<div class="cards">
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Airbus_A320neo_Boeing_737_comparison.jpg" alt="A320neo">
-<h3>✈️ Airbus A320neo</h3>
-<p>Perfeito para médias distâncias, moderno e econômico.</p>
-</div>
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Airbus_A330-900neo.jpg" alt="A330neo">
-<h3>✈️ Airbus A330neo</h3>
-<p>Longas rotas internacionais, conforto e eficiência máxima.</p>
-</div>
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Embraer_E195_E2_Atlas_Air.jpg" alt="Embraer E195">
-<h3>✈️ Embraer E195</h3>
-<p>Ideal para rotas médias com excelente desempenho e conforto.</p>
-</div>
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Cessna_208B_Grand_Caravan_-_G1000.jpg" alt="Cessna Caravan">
-<h3>✈️ Cessna Caravan</h3>
-<p>Voos curtos e turísticos, perfeito para cidades pequenas.</p>
-</div>
+<h2 class="section-title">Buscar voos</h2>
+<div class="search-box">
+<select><option>Origem</option><option>Orenji</option><option>Greater Rockford</option></select>
+<select><option>Destino</option><option>Lukla</option><option>Saba</option></select>
+<input type="date">
+<input type="number" placeholder="Passageiros">
+<button>Buscar</button>
 </div>
 </section>
 
-<!-- Destinos -->
-<section>
-<h2 class="section-title">Destinos</h2>
+<!-- FROTA -->
+<section class="alt">
+<h2 class="section-title">Nossa frota</h2>
 <div class="cards">
-<div class="card">
-<h3>📍 Greater Rockford</h3>
-<p>Conexão com voos nacionais e internacionais.</p>
-</div>
-<div class="card">
-<h3>📍 Orenji</h3>
-<p>Rotas regionais curtas com Cessna Caravan.</p>
-</div>
-<div class="card">
-<h3>📍 Lukla</h3>
-<p>Voos turísticos curtos, cenário incrível.</p>
-</div>
+<div class="card"><h3>Airbus A330neo</h3><p>Longas distâncias, máximo conforto.</p></div>
+<div class="card"><h3>Airbus A320neo</h3><p>Rotas médias com eficiência.</p></div>
+<div class="card"><h3>Embraer E195</h3><p>Conectividade regional moderna.</p></div>
+<div class="card"><h3>Cessna Caravan</h3><p>Voos curtos e turísticos.</p></div>
 </div>
 </section>
 
-<!-- Classes e Check-in -->
+<!-- EXPERIÊNCIA -->
 <section>
-<h2 class="section-title">Classes e Check-in</h2>
+<h2 class="section-title">Experiência a bordo</h2>
 <div class="cards">
-<div class="card">
-<h3>💺 Classes Premium</h3>
-<p>Econômica, Executiva e Prime, conforto e serviços de primeira.</p>
-</div>
-<div class="card">
-<h3>📱 Check-in Online</h3>
-<p>Em breve você poderá realizar check-in digital e obter cartão de embarque pelo celular.</p>
-</div>
+<div class="card"><h3>Econômica</h3><p>Conforto inteligente e entretenimento.</p></div>
+<div class="card"><h3>Executiva</h3><p>Mais espaço, refeições premium.</p></div>
+<div class="card"><h3>Prime</h3><p>Experiência exclusiva Azol.</p></div>
 </div>
 </section>
+
+<!-- BAGAGEM -->
+<section class="alt">
+<h2 class="section-title">Bagagem</h2>
+<div class="cards">
+<div class="card"><h3>Mão</h3><p>Até 10kg incluídos.</p></div>
+<div class="card"><h3>Despachada</h3><p>Planos flexíveis conforme rota.</p></div>
 </div>
+</section>
+
+<!-- CHECK-IN -->
+<section>
+<h2 class="section-title">Check-in online</h2>
+<div class="search-box">
+<input placeholder="Código da reserva">
+<input placeholder="Sobrenome">
+<button>Fazer check-in</button>
+</div>
+</section>
 
 <footer>
-© 2026 Azol Linhas Aéreas — Todos os direitos reservados
+© 2026 Azol Linhas Aéreas — RP Oficial
 </footer>
 
 <script>
-// Banner rotativo funcional com 3 imagens
-let slides = document.querySelectorAll('.hero img');
-let current = 0;
-
-// Inicializa primeira imagem visível
-slides.forEach((img,i) => img.style.opacity = (i===0 ? '1':'0'));
-
-// Rotação automática
-setInterval(() => {
-  slides[current].style.opacity = '0';
-  current = (current + 1) % slides.length;
-  slides[current].style.opacity = '1';
-}, 5000);
+let slides=document.querySelectorAll('.hero img');
+let i=0;
+slides[0].style.opacity=1;
+setInterval(()=>{
+slides[i].style.opacity=0;
+i=(i+1)%slides.length;
+slides[i].style.opacity=1;
+},5000);
 </script>
 
 </body>
-  </html>
+</html>
