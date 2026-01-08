@@ -1,201 +1,209 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | PTFS Official Operations</title>
+    <title>Azol Linhas Aéreas | PTFS RP</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .gradient-brand { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
-        .card-zoom:hover img { transform: scale(1.05); }
-        .route-glow { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5)); }
+        .boarding-pass-shadow { shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
     </style>
 </head>
-<body class="bg-[#f8fafc]">
+<body class="bg-[#0a192f] text-slate-200" x-data="azolSystem()">
 
-    <div class="bg-[#ffc300] py-1 text-center text-[10px] font-bold uppercase tracking-widest text-[#001d3d]">
-        Status da Rede PTFS: Operacional | Próxima Atualização em 05:00
-    </div>
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto border-b border-white/10">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 w-10 h-10 rounded-lg flex items-center justify-center font-black text-white italic shadow-lg shadow-blue-500/30">A</div>
+            <h1 class="text-2xl font-black tracking-tighter uppercase italic text-white">Azol <span class="font-light text-blue-400">Linhas Aéreas</span></h1>
+        </div>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold tracking-[0.2em] uppercase">
+            <a href="#" class="hover:text-blue-400 transition" @click="step = 1">Início</a>
+            <a href="#" class="hover:text-blue-400 transition">Destinos</a>
+            <a href="#" class="text-blue-500 border-b border-blue-500">Check-in</a>
+        </div>
+    </nav>
 
-    <header class="sticky top-0 z-50 glass border-b border-gray-200">
-        <div class="container mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-[#003566] p-2 rounded-lg shadow-inner">
-                    <svg class="w-6 h-6 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.19c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.19c.31-.17.69-.17 1 0l7.97 4.19c.32.17.53.5.53.88v9z"/></svg>
+    <main class="max-w-5xl mx-auto p-6 min-h-[80vh] flex items-center justify-center">
+
+        <template x-if="step === 1">
+            <div class="glass text-slate-900 w-full max-w-lg rounded-[2rem] p-10 shadow-2xl animate-in fade-in zoom-in duration-500">
+                <div class="mb-8 text-center">
+                    <h2 class="text-3xl font-black text-[#002855] italic uppercase tracking-tighter">Portal do Passageiro</h2>
+                    <p class="text-slate-400 text-sm">Preencha os dados para simular sua viagem RP</p>
                 </div>
-                <div>
-                    <h1 class="font-extrabold text-2xl tracking-tighter text-[#001d3d]">AZOL</h1>
-                    <p class="text-[9px] font-bold text-sky-600 uppercase tracking-[0.2em] leading-none">Linhas Aéreas</p>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Nome do Piloto/Passageiro</label>
+                        <input type="text" x-model="form.name" class="w-full border-b-2 border-slate-100 p-3 outline-none focus:border-blue-600 transition text-lg font-semibold" placeholder="Ex: Gabriel Azol">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Origem</label>
+                            <select x-model="form.from" class="w-full bg-slate-50 p-3 rounded-xl mt-1 font-bold text-blue-900 outline-none">
+                                <template x-for="(city, code) in cities">
+                                    <option :value="code" x-text="city.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Destino</label>
+                            <select x-model="form.to" class="w-full bg-slate-50 p-3 rounded-xl mt-1 font-bold text-blue-900 outline-none">
+                                <template x-for="(city, code) in cities">
+                                    <option :value="code" x-text="city.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-3">Selecione a Classe</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <template x-for="c in ['Econômica', 'Executiva', 'Primeira Classe']">
+                                <button @click="form.classType = c" 
+                                    :class="form.classType === c ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-400 border-slate-200'"
+                                    class="text-[10px] py-3 rounded-xl font-black uppercase border transition-all active:scale-95 shadow-sm" x-text="c">
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#002855] p-6 rounded-[1.5rem] flex justify-between items-center text-white shadow-xl shadow-blue-900/20">
+                        <div>
+                            <p class="text-[9px] font-bold text-blue-300 uppercase tracking-[0.2em]">Tarifa RP Estipada</p>
+                            <p class="text-3xl font-black italic" x-text="formatCurrency(calculatePrice())"></p>
+                        </div>
+                        <div class="opacity-30">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10h20M2 14h20M2 18h20M2 22h20M18 2h4v8h-4zM2 2v4h12V2H2z"/></svg>
+                        </div>
+                    </div>
+
+                    <button @click="generateTicket()" :disabled="!form.name"
+                        class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 disabled:opacity-30 disabled:grayscale shadow-lg shadow-blue-600/30">
+                        CONFIRMAR E GERAR BILHETE
+                    </button>
                 </div>
             </div>
-            
-            <nav class="hidden lg:flex gap-8 text-sm font-semibold text-[#003566]">
-                <a href="#home" class="hover:text-sky-500 transition">Início</a>
-                <a href="#mapa" class="hover:text-sky-500 transition">Rotas</a>
-                <a href="#frota" class="hover:text-sky-500 transition">Frota</a>
-                <a href="#servicos" class="hover:text-sky-500 transition">Serviços</a>
-            </nav>
+        </template>
 
-            <button class="bg-[#003566] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-600 transition-all shadow-lg hover:shadow-sky-200">
-                Minha Conta
-            </button>
-        </div>
-    </header>
+        <template x-if="step === 2">
+            <div class="w-full max-w-3xl animate-in slide-in-from-bottom duration-700">
+                <div class="bg-white text-slate-900 rounded-[2.5rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] flex flex-col md:flex-row border-4 border-blue-600">
+                    
+                    <div class="p-10 flex-[2.5] border-r-4 border-dashed border-slate-100 relative">
+                        <div class="flex justify-between items-center mb-10">
+                            <div class="text-blue-900 font-black italic text-2xl tracking-tighter">AZOL AIRLINES</div>
+                            <div class="text-[10px] font-black bg-blue-900 text-white px-4 py-1 rounded-full uppercase tracking-widest" x-text="form.classType"></div>
+                        </div>
 
-    <section id="home" class="relative py-24 lg:py-32 overflow-hidden">
-        <div class="absolute inset-0 -z-10">
-            <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#001d3dbf] to-transparent"></div>
-        </div>
-        
-        <div class="container mx-auto px-4">
-            <div class="max-w-2xl text-white">
-                <span class="bg-sky-500/20 text-sky-300 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-sky-500/30">Líder em Simulação Corporativa</span>
-                <h2 class="text-5xl lg:text-7xl font-extrabold mt-6 leading-tight">Conectando o <span class="text-sky-400 font-light italic">mundo virtual.</span></h2>
-                <p class="mt-6 text-lg text-gray-200 leading-relaxed max-w-lg">Opere nas rotas mais desafiadoras do PTFS com a segurança e o conforto da frota Azol. De Greater Rockford a lhas remotas.</p>
+                        <div class="flex justify-between items-center mb-10">
+                            <div class="text-center">
+                                <h4 class="text-5xl font-black text-[#002855]" x-text="form.from"></h4>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" x-text="cities[form.from].name"></p>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center px-6">
+                                <div class="w-full h-[2px] bg-slate-200 relative border-t-2 border-dashed border-slate-300">
+                                    <svg class="absolute -top-3 left-1/2 -translate-x-1/2 text-blue-600 bg-white px-2" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                                </div>
+                                <p class="text-[10px] font-mono mt-4 text-slate-400 uppercase tracking-widest">Flight AZ-RP26</p>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="text-5xl font-black text-[#002855]" x-text="form.to"></h4>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" x-text="cities[form.to].name"></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-6 pt-6 border-t border-slate-100">
+                            <div>
+                                <p class="text-[9px] font-black text-slate-300 uppercase">Passageiro</p>
+                                <p class="font-bold text-slate-700 truncate" x-text="form.name.toUpperCase()"></p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-black text-slate-300 uppercase">Assento</p>
+                                <p class="font-bold text-slate-700">14A</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-black text-slate-300 uppercase">Tarifa</p>
+                                <p class="font-bold text-green-600" x-text="formatCurrency(calculatePrice())"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-10 flex-1 flex flex-col items-center justify-center gap-6">
+                        <div class="bg-white p-4 rounded-3xl shadow-inner border border-slate-200">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=AzolRP-Valid" alt="QR Code" class="w-32 h-32 opacity-80">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] mb-2">Validação RP</p>
+                            <div class="text-[9px] font-mono text-slate-400 italic leading-tight">
+                                Este ticket é válido<br>apenas para servidores<br>Azol Linhas Aéreas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="mt-10 bg-white p-2 rounded-2xl shadow-2xl max-w-xl flex flex-col md:flex-row gap-2">
-                    <input type="text" placeholder="Origem (Ex: GR)" class="flex-1 p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-sky-500 text-slate-700 font-medium">
-                    <input type="text" placeholder="Destino" class="flex-1 p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-sky-500 text-slate-700 font-medium">
-                    <button class="gradient-brand text-white px-8 py-4 rounded-xl font-bold hover:brightness-125 transition">VOAR AGORA</button>
+                <div class="flex gap-4 justify-center mt-10">
+                    <button @click="window.print()" class="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-full font-bold transition flex items-center gap-2">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-12 0v4h12v-4m-12 0h12"/></svg>
+                        IMPRIMIR PDF
+                    </button>
+                    <button @click="step = 1" class="text-slate-400 hover:text-white px-8 py-3 transition text-sm font-bold underline">
+                        EMITIR NOVO TICKET
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
+        </template>
+    </main>
 
-    <section id="mapa" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-3xl font-extrabold text-[#001d3d]">Malha Aérea PTFS</h3>
-                <div class="w-20 h-1.5 bg-sky-500 mx-auto mt-4 rounded-full"></div>
-                <p class="mt-4 text-slate-500 font-medium">Nossas operações cobrem 100% do arquipélago seguindo o mapa estratégico.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-8 bg-slate-100 p-4 rounded-[2rem] shadow-inner border border-gray-200">
-                    <img src="https://i.imgur.com/vHqY7Z8.png" alt="Mapa PTFS" class="w-full h-auto rounded-xl shadow-2xl route-glow transition hover:scale-[1.01]">
-                </div>
-                <div class="lg:col-span-4 space-y-6">
-                    <div class="bg-[#003566] p-6 rounded-2xl text-white">
-                        <h4 class="font-bold text-xl mb-4">Hubs de Operação</h4>
-                        <ul class="space-y-4 text-sm opacity-90">
-                            <li class="flex items-center gap-3 border-b border-white/10 pb-2">
-                                <span class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold italic">GR</span>
-                                Greater Rockford - Hub Internacional
-                            </li>
-                            <li class="flex items-center gap-3 border-b border-white/10 pb-2">
-                                <span class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-bold italic">CY</span>
-                                Cypress Terrace - Base Regional
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center font-bold italic">SA</span>
-                                Saint Barthélemy - Operação Curta
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="frota" class="py-20 bg-slate-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h3 class="text-3xl font-extrabold text-[#001d3d]">Frota Azol</h3>
-                    <p class="text-slate-500">Aeronaves configuradas para o máximo realismo.</p>
-                </div>
-                <div class="hidden md:block">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Tecnologia & Segurança</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://www.airway.com.br/wp-content/uploads/2020/11/a330-900neo-azul-pr-anz-960x640.jpg" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">LONG HAUL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Airbus A330neo</h4>
-                        <p class="text-sm text-slate-500 mt-2">Capacidade máxima e autonomia para travessias entre continentes.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://cdn.flightsim.to/images/28/fss-embraer-195---azul-linhas-aereas---pr-axf-418113-1766888084-l0eLO.jpg?width=1400" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-emerald-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">REGIONAL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Embraer E195-E2</h4>
-                        <p class="text-sm text-slate-500 mt-2">A conexão perfeita entre hubs brasileiros e aeroportos médios.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://pic.bstarstatic.com/ugc/f9485ac860f554772b5a7921a4637e08.jpeg" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-amber-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">SHORT HAUL</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Cessna Caravan</h4>
-                        <p class="text-sm text-slate-500 mt-2">Especialista em pistas de terra e acessos remotos no PTFS.</p>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLtQCpPf_kydA979VuwQOhLfXPnxRtVgGflqAXqE7LAqLU94hMPgKhwT0&s=10" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] px-3 py-1 rounded-full font-bold">MAINLINE</div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-xl text-[#001d3d]">Airbus A320neo</h4>
-                        <p class="text-sm text-slate-500 mt-2">Equilíbrio perfeito entre eficiência e número de passageiros.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-[#001d3d] text-white pt-20 pb-10">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16 border-b border-white/5 pb-16">
-            <div>
-                <h4 class="font-extrabold text-3xl mb-6">AZOL</h4>
-                <p class="text-slate-400 leading-relaxed text-sm">O maior portal de operações virtuais para entusiastas de aviação no PTFS. Credibilidade e paixão por voar.</p>
-            </div>
-            <div class="grid grid-cols-2 gap-8">
-                <div>
-                    <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Suporte</h5>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" class="hover:text-white transition">Check-in</a></li>
-                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition">Regras</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Institucional</h5>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" class="hover:text-white transition">Nossa Frota</a></li>
-                        <li><a href="#" class="hover:text-white transition">Carreiras</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <h5 class="font-bold mb-4 text-sky-400 uppercase text-xs">Assine a Newsletter</h5>
-                <div class="flex bg-white/5 p-1 rounded-xl">
-                    <input type="email" placeholder="Seu e-mail" class="bg-transparent border-none flex-1 p-3 text-sm focus:ring-0">
-                    <button class="bg-sky-500 px-4 py-2 rounded-lg text-xs font-extrabold uppercase">OK</button>
-                </div>
-            </div>
-        </div>
-        <div class="container mx-auto px-4 mt-10 text-center text-[10px] text-slate-500 font-medium tracking-widest uppercase">
-            © 2026 AZOL LINHAS AÉREAS | PROJETO PARA PORTFÓLIO (PTFS VIRTUAL)
-        </div>
+    <footer class="p-10 text-center text-slate-600 text-[10px] font-bold uppercase tracking-[0.3em]">
+        © 2026 Azol Linhas Aéreas | PTFS Pilot Training Flight Simulator
     </footer>
 
+    <script>
+        function azolSystem() {
+            return {
+                step: 1,
+                form: {
+                    name: '',
+                    from: 'GRR',
+                    to: 'PER',
+                    classType: 'Econômica'
+                },
+                cities: {
+                    "GRR": { name: "Greater Rockford", x: 50, y: 70 },
+                    "PER": { name: "Perth", x: 80, y: 30 },
+                    "CYP": { name: "Cyprus", x: 85, y: 90 },
+                    "SAB": { name: "Saint Barthélemy", x: 60, y: 45 },
+                    "ORE": { name: "Orenji", x: 45, y: 10 },
+                    "SKO": { name: "Skopelos", x: 75, y: 65 },
+                    "IZO": { name: "Izolirani", x: 95, y: 45 }
+                },
+                calculatePrice() {
+                    const origin = this.cities[this.form.from];
+                    const destiny = this.cities[this.form.to];
+                    const dist = Math.sqrt(Math.pow(destiny.x - origin.x, 2) + Math.pow(destiny.y - origin.y, 2));
+                    
+                    let total = dist * 1800; // Preço base "Gigante"
+                    if (this.form.classType === 'Executiva') total *= 2.8;
+                    if (this.form.classType === 'Primeira Classe') total *= 5.5;
+                    
+                    return total === 0 ? 4500 : total;
+                },
+                formatCurrency(val) {
+                    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
+                },
+                generateTicket() {
+                    this.step = 2;
+                }
+            }
+        }
+    </script>
 </body>
-                </html>
+</html>
