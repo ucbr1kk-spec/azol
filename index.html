@@ -1,201 +1,236 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" x-data="azolApp()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | Official Website</title>
+    <title>Azol Linhas Aéreas | Official Corporate RP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #0f172a; }
-        .lux-shadow { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); }
-        .btn-premium { background: #002855; transition: all 0.3s ease; }
-        .btn-premium:hover { background: #004085; transform: translateY(-1px); }
-        .seat-btn { transition: all 0.2s; border: 1px solid #e2e8f0; }
-        .seat-selected { background-color: #002855 !important; color: white !important; border-color: #002855 !important; }
-        .map-bg { filter: grayscale(100%) contrast(110%); opacity: 0.8; transition: 0.5s; }
-        .map-bg:hover { filter: grayscale(0%); opacity: 1; }
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
+        .navy-blue { background-color: #001D3D; }
+        .text-navy { color: #001D3D; }
+        [x-cloak] { display: none !important; }
+        .seat-selected { background-color: #003566 !important; color: white; }
+        .banner-gradient { background: linear-gradient(to bottom, rgba(0,29,61,0.2), rgba(0,29,61,0.8)); }
     </style>
 </head>
-<body x-data="azolApp()">
+<body class="antialiased">
 
-    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-8 h-24 flex justify-between items-center">
-            <div class="flex items-center gap-4 cursor-pointer" @click="tab = 'home'">
-                <div class="w-10 h-10 bg-[#002855] flex items-center justify-center rounded-sm">
-                    <span class="text-white font-light text-xl tracking-tighter">A</span>
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 navy-blue rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <div class="leading-none">
-                    <h1 class="text-xl font-bold tracking-tighter text-[#002855] uppercase">Azol</h1>
-                    <p class="text-[9px] text-slate-400 font-medium tracking-[0.3em] uppercase">Linhas Aéreas</p>
-                </div>
+                <span class="font-bold text-xl tracking-tight text-navy">AZOL <span class="font-light text-slate-400 italic">RP</span></span>
             </div>
-            
-            <div class="hidden md:flex gap-10 text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
-                <button @click="tab = 'home'" :class="tab === 'home' ? 'text-[#002855] border-b-2 border-[#002855] pb-1' : ''">Home</button>
-                <button @click="tab = 'status'" :class="tab === 'status' ? 'text-[#002855] border-b-2 border-[#002855] pb-1' : ''">Status de Voo</button>
-                <button @click="tab = 'checkin'" :class="tab === 'checkin' ? 'text-[#002855] border-b-2 border-[#002855] pb-1' : ''">Check-in</button>
+            <div class="hidden md:flex gap-8 font-semibold text-sm uppercase tracking-wider">
+                <button @click="tab = 'home'" :class="tab === 'home' ? 'text-blue-600' : 'text-slate-500 hover:text-navy'">Home</button>
+                <button @click="tab = 'status'" :class="tab === 'status' ? 'text-blue-600' : 'text-slate-500 hover:text-navy'">Status de Voo</button>
+                <button @click="tab = 'checkin'" :class="tab === 'checkin' ? 'text-blue-600' : 'text-slate-500 hover:text-navy'">Check-in</button>
+                <button @click="tab = 'servico'" :class="tab === 'servico' ? 'text-blue-600' : 'text-slate-500 hover:text-navy'">Serviço de Bordo</button>
             </div>
-
-            <button class="text-[11px] font-bold border border-slate-200 px-6 py-3 rounded-sm hover:bg-slate-50 transition">LOGIN</button>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-12 px-8">
-
-        <div x-show="tab === 'home'" x-transition>
-            <div class="grid md:grid-cols-2 gap-16 items-center py-10">
-                <div class="space-y-8">
-                    <h2 class="text-6xl font-bold text-[#002855] leading-tight tracking-tighter">Onde a sofisticação<br>encontra as nuvens.</h2>
-                    <p class="text-slate-500 text-lg leading-relaxed max-w-md">Experimente o padrão ouro em simulação aérea. Conectando os principais hubs do PTFS com elegância e pontualidade.</p>
-                    <button @click="tab = 'checkin'" class="btn-premium text-white px-10 py-5 rounded-sm font-bold text-xs tracking-widest uppercase">Reserve agora</button>
-                </div>
-                <div class="rounded-lg overflow-hidden lux-shadow">
-                    <img src="https://images.unsplash.com/photo-1540339832862-47452993c71e?auto=format&fit=crop&q=80" class="w-full h-[500px] object-cover">
-                </div>
+    <main x-show="tab === 'home'" x-transition x-cloak>
+        <section class="relative h-[85vh] flex items-center overflow-hidden">
+            <img src="https://i.imgur.com/vHqY7Z8.png" class="absolute inset-0 w-full h-full object-cover" alt="Azol Banner">
+            <div class="absolute inset-0 banner-gradient"></div>
+            <div class="relative max-w-7xl mx-auto px-6 w-full text-white">
+                <span class="inline-block px-4 py-1 bg-blue-500/20 backdrop-blur-md border border-white/30 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Líder em Simulação Corporativa</span>
+                <h1 class="text-6xl md:text-8xl font-bold leading-tight mb-8">O céu do Brasil é <br><span class="text-blue-400">Azol.</span></h1>
+                <p class="max-w-xl text-lg text-slate-200 mb-10 leading-relaxed">
+                    Experiência RP nível realismo extremo. Frota moderna, malha integrada ao PTFS e serviço de bordo executivo.
+                </p>
+                <button @click="tab = 'checkin'" class="bg-white text-navy px-10 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-2xl uppercase tracking-widest text-sm">
+                    Reservar Agora
+                </button>
             </div>
-        </div>
-
-        <div x-show="tab === 'status'" x-transition class="space-y-12">
-            <div class="text-center space-y-3">
-                <h3 class="text-3xl font-bold text-[#002855] tracking-tighter">Radar de Operações</h3>
-                <div class="w-12 h-1 bg-[#002855] mx-auto"></div>
-            </div>
-            <div class="lux-shadow rounded-xl overflow-hidden bg-white p-4 border border-slate-50">
-                <div class="relative group cursor-crosshair">
-                    <img src="https://i.ibb.co/VpR7z7x/PTFS-Update-Map-With-Marks.webp" class="w-full h-auto map-bg rounded-lg">
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur px-4 py-2 rounded shadow-sm border border-slate-100 flex items-center gap-3">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-                        <span class="text-[10px] font-bold text-slate-700 tracking-widest uppercase italic">Servidor 01 Online</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div x-show="tab === 'checkin'" x-transition class="max-w-5xl mx-auto">
-            <template x-if="step < 3">
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="md:col-span-2 space-y-10">
-                        <h3 class="text-2xl font-bold text-[#002855] tracking-tight border-b border-slate-100 pb-4 italic underline underline-offset-8 decoration-slate-200">01 Detalhes da Reserva</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nome do Passageiro</label>
-                                <input type="text" x-model="form.name" class="border-b border-slate-200 py-3 outline-none focus:border-[#002855] transition text-sm font-medium">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Classe Social</label>
-                                <select x-model="form.classType" class="border-b border-slate-200 py-3 outline-none text-sm font-medium">
-                                    <option value="Econômica">Econômica</option>
-                                    <option value="Executiva">Executiva Premium</option>
-                                    <option value="First">First Class</option>
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Origem</label>
-                                <select x-model="form.from" class="border-b border-slate-200 py-3 outline-none text-sm font-medium">
-                                    <template x-for="(city, code) in cities"><option :value="code" x-text="city.name"></option></template>
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Destino</label>
-                                <select x-model="form.to" class="border-b border-slate-200 py-3 outline-none text-sm font-medium">
-                                    <template x-for="(city, code) in cities"><option :value="code" x-text="city.name"></option></template>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-50 p-10 rounded-sm flex justify-between items-center">
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Tarifa Final</p>
-                                <h4 class="text-4xl font-light text-[#002855]" x-text="formatCurrency(calculatePrice())"></h4>
-                            </div>
-                            <p class="text-[9px] text-slate-400 max-w-[120px] leading-tight uppercase font-medium">Taxas de embarque inclusas no valor total.</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-8 bg-white border border-slate-100 p-8 lux-shadow rounded-sm">
-                        <h3 class="text-xl font-bold text-[#002855] tracking-tight italic">02 Assento</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <template x-for="s in seats">
-                                <button @click="form.seat = s" :class="form.seat === s ? 'seat-selected' : ''" class="seat-btn py-4 rounded-sm text-[11px] font-bold hover:bg-slate-50" x-text="s"></button>
-                            </template>
-                        </div>
-                        <button @click="step = 3" :disabled="!form.name || !form.seat" class="w-full btn-premium text-white py-5 rounded-sm font-bold text-[10px] tracking-[0.3em] uppercase disabled:opacity-20 shadow-xl">Confirmar Reserva</button>
-                    </div>
-                </div>
-            </template>
-
-            <template x-if="step === 3">
-                <div class="flex flex-col items-center gap-10 animate-in fade-in duration-700">
-                    <div class="bg-white border border-slate-200 p-12 max-w-2xl w-full lux-shadow rounded-sm relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-2 bg-[#002855]"></div>
-                        
-                        <div class="flex justify-between items-start mb-16">
-                            <div>
-                                <h2 class="text-2xl font-bold text-[#002855] tracking-tighter uppercase italic">Azol Airlines</h2>
-                                <p class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Comprovante de Embarque</p>
-                            </div>
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Azol" class="w-16 h-16 grayscale opacity-20">
-                        </div>
-
-                        <div class="flex justify-between items-center mb-16">
-                            <div class="text-center">
-                                <p class="text-5xl font-light text-[#002855] tracking-tighter" x-text="form.from"></p>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mt-2" x-text="cities[form.from].name"></p>
-                            </div>
-                            <div class="flex-1 flex flex-col items-center">
-                                <div class="w-full border-t border-slate-100 relative h-0">
-                                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-4 text-slate-200">✈</div>
-                                </div>
-                                <p class="text-[9px] font-bold text-slate-300 mt-4 tracking-widest uppercase">Flight AZ-26</p>
-                            </div>
-                            <div class="text-center">
-                                <p class="text-5xl font-light text-[#002855] tracking-tighter" x-text="form.to"></p>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mt-2" x-text="cities[form.to].name"></p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-4 gap-8 border-t border-slate-100 pt-10">
-                            <div><p class="text-[8px] font-bold text-slate-300 uppercase mb-1">Passageiro</p><p class="text-[11px] font-bold text-slate-700 uppercase" x-text="form.name"></p></div>
-                            <div><p class="text-[8px] font-bold text-slate-300 uppercase mb-1">Assento</p><p class="text-[11px] font-bold text-slate-700 uppercase" x-text="form.seat"></p></div>
-                            <div><p class="text-[8px] font-bold text-slate-300 uppercase mb-1">Portão</p><p class="text-[11px] font-bold text-slate-700 uppercase tracking-tighter">B12</p></div>
-                            <div><p class="text-[8px] font-bold text-slate-300 uppercase mb-1">Classe</p><p class="text-[11px] font-bold text-[#002855] uppercase" x-text="form.classType"></p></div>
-                        </div>
-                    </div>
-                    <button @click="window.print()" class="text-slate-400 hover:text-slate-800 text-[10px] font-black tracking-widest uppercase border-b border-slate-200 pb-1 transition">Salvar Bilhete em PDF</button>
-                </div>
-            </template>
-        </div>
+        </section>
     </main>
 
-    <footer class="py-16 border-t border-slate-50 text-center">
-        <p class="text-[10px] font-bold text-slate-300 tracking-[0.4em] uppercase">© 2026 Azol Linhas Aéreas - Simulação de Elite</p>
+    <section x-show="tab === 'status'" class="max-w-7xl mx-auto px-6 py-16" x-transition x-cloak>
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-navy uppercase tracking-tighter">Radar de Operações PTFS</h2>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="bg-white rounded-[2rem] p-4 shadow-xl border border-slate-200 overflow-hidden">
+            <img src="https://i.imgur.com/vHqY7Z8.png" class="w-full h-auto rounded-2xl" alt="Mapa PTFS Radar">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <template x-for="hub in hubs">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" x-text="hub.type"></p>
+                        <p class="text-lg font-bold text-navy" x-text="hub.name"></p>
+                        <span class="inline-flex items-center mt-2 px-2 py-1 rounded-md text-[10px] font-bold bg-green-100 text-green-700">OPERACIONAL</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <section x-show="tab === 'checkin'" class="max-w-5xl mx-auto px-6 py-16" x-transition x-cloak>
+        <div class="grid lg:grid-cols-2 gap-12 bg-white rounded-[2.5rem] p-10 shadow-2xl border border-slate-100">
+            <div>
+                <h2 class="text-2xl font-bold text-navy mb-8 uppercase italic">Dados do Passageiro</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2">Nome Completo</label>
+                        <input type="text" x-model="booking.name" class="w-full mt-1 p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600 transition">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2">Origem</label>
+                            <select x-model="booking.origin" class="w-full mt-1 p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                                <option value="">Selecione...</option>
+                                <option value="Greater Rockford">Greater Rockford</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Grindavik">Grindavik</option>
+                                <option value="Orenji">Orenji</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2">Destino</label>
+                            <select x-model="booking.dest" class="w-full mt-1 p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                                <option value="">Selecione...</option>
+                                <option value="Saint Barthélemy">Saint Barthélemy</option>
+                                <option value="Perth">Perth</option>
+                                <option value="Izolirani">Izolirani</option>
+                                <option value="Southampton">Southampton</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-navy rounded-2xl text-white">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs opacity-60">Tarifa Estimada</span>
+                            <span class="font-bold text-xl" x-text="'R$ ' + calculateFare()"></span>
+                        </div>
+                        <p class="text-[10px] opacity-40 uppercase tracking-tighter">Cálculo dinâmico baseado na milhagem virtual PTFS.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-navy mb-8 uppercase italic text-center">Seleção de Assento (2-2)</h2>
+                <div class="grid grid-cols-5 gap-3 max-w-[280px] mx-auto">
+                    <template x-for="s in seats">
+                        <button 
+                            @click="booking.seat = s" 
+                            :class="booking.seat === s ? 'seat-selected' : 'bg-slate-100'"
+                            class="w-10 h-10 rounded-lg text-[10px] font-bold transition-all hover:scale-110"
+                            x-text="s">
+                        </button>
+                    </template>
+                </div>
+                <div class="mt-12">
+                    <button @click="sendToDiscord()" :disabled="loading" class="w-full py-5 navy-blue text-white rounded-2xl font-bold tracking-widest hover:brightness-125 transition-all shadow-xl disabled:opacity-50">
+                        <span x-show="!loading">CONFIRMAR RESERVA</span>
+                        <span x-show="loading">PROCESSANDO...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section x-show="tab === 'servico'" class="max-w-7xl mx-auto px-6 py-16" x-transition x-cloak>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="md:col-span-1">
+                <h2 class="text-4xl font-bold text-navy leading-tight uppercase italic">Menu <br>Executivo</h2>
+                <p class="text-slate-500 mt-4 font-light">Gastronomia refinada a 30 mil pés no seu voo PTFS.</p>
+            </div>
+            <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
+                <template x-for="item in menu">
+                    <div class="bg-white p-8 rounded-[2rem] shadow-lg border border-slate-100 flex gap-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl" x-text="item.icon"></div>
+                        <div>
+                            <h4 class="font-bold text-navy uppercase text-sm italic" x-text="item.title"></h4>
+                            <p class="text-xs text-slate-400 mt-2 leading-relaxed" x-text="item.desc"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-50">
+            <p class="text-xs font-bold text-navy">© 2026 AZOL LINHAS AÉREAS - RP SÉRIO</p>
+            <div class="flex gap-6 mt-4 md:mt-0 text-xs font-bold tracking-widest uppercase">
+                <span>Discord Oficial</span>
+                <span>GitHub Script</span>
+                <span>PTFS Community</span>
+            </div>
+        </div>
     </footer>
 
     <script>
         function azolApp() {
             return {
-                tab: 'home', step: 1,
-                form: { name: '', from: 'GRR', to: 'PER', classType: 'Econômica', seat: '' },
-                cities: {
-                    "GRR": { name: "Greater Rockford", x: 50, y: 70 },
-                    "PER": { name: "Perth", x: 80, y: 30 },
-                    "CYP": { name: "Cyprus", x: 85, y: 90 },
-                    "SAB": { name: "Saint Barthélemy", x: 60, y: 45 },
-                    "ORE": { name: "Orenji", x: 45, y: 10 }
+                tab: 'home',
+                loading: false,
+                // INSIRA O SEU WEBHOOK DO DISCORD ABAIXO
+                discordWebhook: 'https://discord.com/api/webhooks/SUA_ID/SEU_TOKEN',
+                booking: {
+                    name: '',
+                    origin: '',
+                    dest: '',
+                    seat: ''
                 },
-                seats: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B'],
-                calculatePrice() {
-                    const o = this.cities[this.form.from]; const d = this.cities[this.form.to];
-                    const dist = Math.sqrt(Math.pow(d.x - o.x, 2) + Math.pow(d.y - o.y, 2));
-                    let p = 350 + (dist * 12); // Preços mais reais (Aprox R$ 350 a R$ 1200)
-                    if (this.form.classType === 'Executiva') p *= 1.8;
-                    if (this.form.classType === 'First') p *= 3.5;
-                    return p;
+                seats: ['1A','1B','','1C','1D','2A','2B','','2C','2D','3A','3B','','3C','3D','4A','4B','','4C','4D'],
+                hubs: [
+                    { name: 'Greater Rockford', type: 'Hub Internacional', icon: '✈️' },
+                    { name: 'Cyprus', type: 'Base Regional', icon: '⛰️' },
+                    { name: 'Grindavik', type: 'Terminal Sul', icon: '⚓' },
+                    { name: 'Orenji', type: 'Estação Leste', icon: '🏯' }
+                ],
+                menu: [
+                    { title: 'Filé Mignon Azol', desc: 'Ao molho de vinho tinto e risoto de parmesão.', icon: '🥩' },
+                    { title: 'Salmão Grelhado', desc: 'Com legumes ao vapor e manteiga de ervas.', icon: '🐟' },
+                    { title: 'Tábua de Queijos', desc: 'Seleção suíça com frutas frescas.', icon: '🧀' },
+                    { title: 'Mousse de Chocolate', desc: '70% cacau com raspas de laranja.', icon: '🍩' }
+                ],
+                calculateFare() {
+                    if(!this.booking.origin || !this.booking.dest) return '0,00';
+                    return (Math.floor(Math.random() * (1200 - 450 + 1)) + 450).toFixed(2);
                 },
-                formatCurrency(v) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v); }
+                async sendToDiscord() {
+                    if(!this.booking.name || !this.booking.seat || !this.booking.origin) {
+                        alert('Por favor, preencha todos os campos e selecione um assento.');
+                        return;
+                    }
+                    this.loading = true;
+                    
+                    const payload = {
+                        embeds: [{
+                            title: "🎫 NOVA RESERVA CONFIRMADA - AZOL RP",
+                            color: 3066993,
+                            fields: [
+                                { name: "Passageiro", value: this.booking.name, inline: true },
+                                { name: "Assento", value: this.booking.seat, inline: true },
+                                { name: "Rota", value: `${this.booking.origin} ➔ ${this.booking.dest}` },
+                                { name: "Tarifa", value: `R$ ${this.calculateFare()}`, inline: true }
+                            ],
+                            timestamp: new Date()
+                        }]
+                    };
+
+                    try {
+                        await fetch(this.discordWebhook, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        alert('Reserva confirmada! Os dados foram enviados ao sistema da companhia.');
+                        this.booking = { name: '', origin: '', dest: '', seat: '' };
+                    } catch (e) {
+                        alert('Erro ao conectar ao servidor. Verifique o Webhook.');
+                    } finally {
+                        this.loading = false;
+                    }
+                }
             }
         }
     </script>
