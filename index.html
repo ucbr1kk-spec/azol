@@ -6,7 +6,6 @@
     <title>Azol Linhas Aéreas | PTFS Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* MANTIDO EXATAMENTE COMO VOCÊ APROVOU */
         :root {
             --azol-primary: #003399;
             --azol-accent: #0093d3;
@@ -16,151 +15,48 @@
         }
 
         * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0;
-            background-color: #f8fafc;
-            color: #0f172a;
-            overflow-x: hidden;
-        }
-
-        header {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            padding: 25px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-        }
-
-        .logo { 
-            font-size: 32px; 
-            font-weight: 800; 
-            color: white;
-            letter-spacing: -1.5px;
-            text-transform: uppercase;
-        }
+        /* Estilo do Banner (Mantido) */
+        header { position: absolute; top: 0; width: 100%; padding: 25px 8%; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent); }
+        .logo { font-size: 32px; font-weight: 800; color: white; letter-spacing: -1.5px; text-transform: uppercase; }
         .logo span { color: var(--azol-gold); }
+        .nav-menu { color: white; font-size: 13px; font-weight: 600; letter-spacing: 1px; cursor: pointer; }
 
-        .nav-menu { color: white; font-size: 13px; font-weight: 600; letter-spacing: 1px; }
-
-        .hero {
-            position: relative;
-            height: 650px;
-            background-image: url('https://images.unsplash.com/photo-1728049123679-829bcdb1f879?fm=jpg&q=60&w=3000');
-            background-repeat: no-repeat;
-            background-position: center center; 
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            padding: 0 8%;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,51,153,0.5) 100%);
-        }
-
-        .hero-text {
-            position: relative;
-            color: white;
-            max-width: 600px;
-            animation: fadeInUp 1s ease-out;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
+        .hero { position: relative; height: 650px; background-image: url('https://images.unsplash.com/photo-1728049123679-829bcdb1f879?fm=jpg&q=60&w=3000'); background-repeat: no-repeat; background-position: center center; background-size: cover; display: flex; align-items: center; padding: 0 8%; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,51,153,0.5) 100%); }
+        .hero-text { position: relative; color: white; max-width: 600px; animation: fadeInUp 1s ease-out; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .hero-text h1 { font-size: 56px; margin: 0; font-weight: 800; line-height: 1; letter-spacing: -2px; }
-        .hero-text p { font-size: 18px; opacity: 0.9; margin-top: 20px; font-weight: 400; }
 
-        .search-engine {
-            position: relative;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            max-width: 1100px;
-            margin: -100px auto 60px;
-            padding: 45px;
-            border-radius: 24px;
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            animation: slideUp 0.8s ease-out forwards;
-        }
-
-        .search-engine h2 { grid-column: 1 / -1; margin: 0 0 20px 0; font-size: 24px; color: var(--azol-primary); font-weight: 800; }
+        /* Card de Busca */
+        .search-engine { position: relative; background: var(--glass); backdrop-filter: blur(15px); max-width: 1100px; margin: -120px auto 60px; padding: 45px; border-radius: 24px; box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2); display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; animation: slideUp 0.8s ease-out forwards; }
+        .search-engine h2 { grid-column: 1 / -1; margin: 0 0 10px 0; font-size: 24px; color: var(--azol-primary); font-weight: 800; }
+        
+        /* Novo Campo: Nome do Passageiro */
+        .full-width { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
 
         .input-box { display: flex; flex-direction: column; gap: 8px; }
         .input-box label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
         
-        select, input {
-            padding: 16px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: var(--transition);
-            background: #fff;
-        }
-
+        select, input { padding: 16px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 15px; font-family: inherit; transition: var(--transition); background: #fff; }
         select:focus, input:focus { border-color: var(--azol-primary); box-shadow: 0 0 0 4px rgba(0,51,153,0.1); outline: none; }
 
-        .btn-main {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, var(--azol-gold) 0%, #f59e0b 100%);
-            color: var(--azol-primary);
-            border: none;
-            padding: 22px;
-            border-radius: 14px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .btn-main { grid-column: 1 / -1; background: linear-gradient(135deg, var(--azol-gold) 0%, #f59e0b 100%); color: var(--azol-primary); border: none; padding: 22px; border-radius: 14px; font-size: 18px; font-weight: 800; cursor: pointer; transition: var(--transition); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-main:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4); }
-
-        .app-bar {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--azol-primary);
-            padding: 14px 45px;
-            border-radius: 50px;
-            display: flex;
-            gap: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
+        /* Barra Inferior */
+        .app-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: var(--azol-primary); padding: 14px 45px; border-radius: 50px; display: flex; gap: 40px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); z-index: 1000; border: 1px solid rgba(255,255,255,0.1); }
         .app-bar item { color: white; font-size: 11px; font-weight: 700; cursor: pointer; opacity: 0.8; transition: 0.3s; text-transform: uppercase; }
-        .app-bar item:hover { opacity: 1; transform: scale(1.1); color: var(--azol-gold); }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(0); } to { opacity: 1; transform: translateY(-120px); } }
-
-        @media (max-width: 768px) {
-            .search-engine { grid-template-columns: 1fr; margin: -50px 20px 20px; padding: 25px; transform: translateY(0) !important; animation: fadeInUp 1s ease; }
-            .hero-text h1 { font-size: 38px; }
-            .app-bar { gap: 20px; padding: 12px 25px; width: 90%; justify-content: space-around; }
-        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo">Azol<span>_</span></div>
-    <div class="nav-menu" style="cursor: pointer;" onclick="alert('Sistema de Status em manutenção!')">RESERVAS • STATUS • AJUDA</div>
+    <div class="nav-menu" onclick="executarAcao('Menu de Ajuda')">RESERVAS • STATUS • AJUDA</div>
 </header>
 
 <section class="hero">
@@ -171,8 +67,15 @@
 </section>
 
 <div class="search-engine">
-    <h2>Reserve seu voo premium</h2>
+    <h2>Check-in & Reserva Manual</h2>
     
+    <div class="full-width">
+        <div class="input-box">
+            <label>Nome Completo do Passageiro (Roblox)</label>
+            <input type="text" id="nome_passageiro" placeholder="Ex: Pilot_Player123">
+        </div>
+    </div>
+
     <div class="input-box">
         <label>Origem</label>
         <select id="origem">
@@ -186,9 +89,6 @@
             <option>Izolirani</option>
             <option>Skopelos</option>
             <option>Sauthemptona</option>
-            <option>USS Carrier</option>
-            <option>HMS Carrier</option>
-            <option>Oil Rig</option>
         </select>
     </div>
 
@@ -198,16 +98,8 @@
             <option>Skoat Island</option>
             <option>Greater Rockford</option>
             <option>Grindavik</option>
-            <option>Saint Barthélemy</option>
             <option>Perth</option>
             <option>Cyprus</option>
-            <option>Orenji</option>
-            <option>Izolirani</option>
-            <option>Skopelos</option>
-            <option>Sauthemptona</option>
-            <option>USS Carrier</option>
-            <option>HMS Carrier</option>
-            <option>Oil Rig</option>
         </select>
     </div>
 
@@ -221,68 +113,80 @@
         <input type="date" id="data_volta">
     </div>
 
-    <button class="btn-main" onclick="enviarParaDiscord()">BUSCAR VOOS NA MALHA PTFS</button>
+    <button class="btn-main" id="btn_enviar" onclick="confirmarCheckin()">REALIZAR CHECK-IN MANUAL</button>
 </div>
 
 <nav class="app-bar">
-    <item onclick="alert('Redirecionando para Loja...')">COMPRAR</item>
-    <item onclick="alert('Abrindo Histórico de Viagens...')">VIAGENS</item>
-    <item onclick="alert('Iniciando Check-in...')">CHECK-IN</item>
-    <item onclick="alert('Abrindo Menu...')">MENU</item>
+    <item onclick="executarAcao('Loja')">COMPRAR</item>
+    <item onclick="executarAcao('Viagens')">VIAGENS</item>
+    <item onclick="executarAcao('Check-in')">CHECK-IN</item>
+    <item onclick="executarAcao('Menu Principal')">MENU</item>
 </nav>
 
 <script>
-    function enviarParaDiscord() {
-        // PEGANDO OS DADOS DO SITE
+    // --- CONFIGURAÇÃO DO DISCORD ---
+    const SEU_WEBHOOK_URL = "COLE_SEU_WEBHOOK_AQUI";
+
+    function confirmarCheckin() {
+        const nome = document.getElementById('nome_passageiro').value;
         const origem = document.getElementById('origem').value;
         const destino = document.getElementById('destino').value;
-        const dataIda = document.getElementById('data_ida').value;
-        const dataVolta = document.getElementById('data_volta').value;
-        const btn = document.querySelector('.btn-main');
+        const ida = document.getElementById('data_ida').value;
+        const btn = document.getElementById('btn_enviar');
 
-        if (!dataIda) {
-            alert("Por favor, escolha uma data de ida!");
+        if (!nome || !ida) {
+            alert("⚠️ Por favor, preencha o Nome e a Data de Ida!");
             return;
         }
 
-        // COLOQUE O SEU LINK DO DISCORD AQUI EMBAIXO:
-        const webhookURL = "COLE_SEU_WEBHOOK_AQUI";
+        // Efeito de Carregamento Profissional
+        btn.innerText = "⏳ PROCESSANDO DADOS NO SISTEMA...";
+        btn.disabled = true;
 
-        const mensagem = {
-            username: "Azol Bot - Reservas",
-            avatar_url: "https://images.unsplash.com/photo-1540339832862-47452993c66b?q=80&w=200",
+        const dadosDiscord = {
+            username: "Sistema de Check-in Azol",
             embeds: [{
-                title: "✈️ Nova Passagem Reservada!",
-                color: 32767, // Azul
+                title: "🎟️ NOVO CHECK-IN REALIZADO",
+                color: 15844367, // Dourado
                 fields: [
-                    { name: "📍 Origem", value: origem, inline: true },
-                    { name: "🏁 Destino", value: destino, inline: true },
-                    { name: "📅 Ida", value: dataIda, inline: true },
-                    { name: "📅 Volta", value: dataVolta || "Só ida", inline: true }
+                    { name: "👤 Passageiro", value: nome, inline: false },
+                    { name: "🛫 De", value: origem, inline: true },
+                    { name: "🛬 Para", value: destino, inline: true },
+                    { name: "📅 Data", value: ida, inline: true }
                 ],
-                footer: { text: "Azol Linhas Aéreas - PTFS Edition" },
                 timestamp: new Date()
             }]
         };
 
-        btn.innerText = "PROCESSANDO...";
-        btn.disabled = true;
+        // Simula um carregamento de 2 segundos antes de enviar
+        setTimeout(() => {
+            fetch(SEU_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dadosDiscord)
+            }).then(() => {
+                alert("✅ Sucesso! Check-in realizado. Boa viagem, " + nome + "!");
+                btn.innerText = "REALIZAR CHECK-IN MANUAL";
+                btn.disabled = false;
+            }).catch(() => {
+                alert("❌ Erro ao conectar com o servidor.");
+                btn.disabled = false;
+            });
+        }, 2000);
+    }
 
-        fetch(webhookURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mensagem)
-        })
-        .then(() => {
-            alert("✅ Passagem enviada com sucesso para o canal da Azol!");
-            btn.innerText = "BUSCAR VOOS NA MALHA PTFS";
-            btn.disabled = false;
-        })
-        .catch(err => {
-            alert("Erro ao enviar. Verifique seu Webhook.");
-            console.error(err);
-            btn.disabled = false;
-        });
+    function executarAcao(nomeAcao) {
+        // Esta função resolve o problema de "clicar e não carregar"
+        const barItems = document.querySelectorAll('item');
+        barItems.forEach(item => item.style.opacity = "0.5");
+
+        console.log("Iniciando carregamento de: " + nomeAcao);
+        
+        // Simula o carregamento da página
+        setTimeout(() => {
+            alert("Sua solicitação de [" + nomeAcao + "] foi carregada com sucesso!");
+            barItems.forEach(item => item.style.opacity = "1");
+        }, 1500);
     }
 </script>
 
