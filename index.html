@@ -3,151 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlyAero | Reserve sua Viagem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Azul | Para onde você voa hoje?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #002D62;
-            --secondary: #FFC107;
-            --text: #333;
-            --light: #f8f9fa;
+            --azul-escuro: #003399;
+            --azul-claro: #0093d3;
+            --amarelo: #ffc600;
+            --cinza-fundo: #f4f6f9;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
-            background-color: #f0f2f5;
-            color: var(--text);
+            background-color: var(--cinza-fundo);
         }
 
-        /* Navbar elegante */
-        nav {
-            background: var(--primary);
-            padding: 15px 50px;
+        /* Topo Azul com a logo */
+        header {
+            background-color: var(--azul-escuro);
+            color: white;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
         }
 
-        .logo { font-size: 24px; font-weight: 600; letter-spacing: 1px; }
+        .logo { font-size: 28px; font-weight: bold; }
+        .logo span { color: var(--amarelo); }
 
-        /* Banner Principal */
+        /* Banner com imagem e degradê */
         .hero {
-            background: linear-gradient(rgba(0,45,98,0.7), rgba(0,45,98,0.7)), 
-                        url('https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(to right, rgba(0, 51, 153, 0.8), transparent), 
+                        url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            height: 400px;
+            height: 350px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            padding: 0 40px;
             color: white;
-            text-align: center;
         }
 
-        /* Caixa de Pesquisa */
-        .search-box {
+        .hero-text h1 { font-size: 28px; max-width: 400px; line-height: 1.2; }
+
+        /* Caixa de Pesquisa que fica sobreposta */
+        .search-container {
             background: white;
+            max-width: 900px;
+            margin: -50px auto 40px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            max-width: 900px;
-            width: 90%;
-            margin: -60px auto 50px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .search-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
         .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-size: 12px; font-weight: 600; color: #777; margin-bottom: 5px; text-transform: uppercase; }
+        .input-group label { font-size: 12px; font-weight: bold; color: #555; margin-bottom: 5px; }
         
         input {
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: inherit;
+            border-radius: 8px;
             font-size: 14px;
-            outline: none;
-            transition: 0.3s;
         }
 
-        input:focus { border-color: var(--primary); }
-
-        .btn-search {
-            background: var(--secondary);
-            color: #000;
+        .btn-busca {
+            background: var(--amarelo);
+            color: var(--azul-escuro);
             border: none;
             padding: 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            align-self: flex-end;
-        }
-
-        .btn-search:hover { background: #e5ad00; transform: translateY(-2px); }
-
-        /* Seção de Ofertas */
-        .offers { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .offer-card {
-            background: white;
             border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
         }
-        .offer-img { width: 200px; background: #ddd; }
-        .offer-content { padding: 20px; flex-grow: 1; }
-        .price { color: var(--primary); font-size: 22px; font-weight: 600; }
+
+        .btn-busca:hover { filter: brightness(0.9); }
+
+        /* Atalhos (A parte de baixo que você mandou na foto) */
+        .shortcuts {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .shortcut-card {
+            background: white;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--azul-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--azul-claro);
+            font-weight: bold;
+        }
+
+        /* Menu de Baixo (Mobile Style) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--azul-escuro);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            color: white;
+            font-size: 11px;
+        }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">FlyAero</div>
-    <div>Check-in | Minhas Viagens</div>
-</nav>
+<header>
+    <div class="logo">Azul<span>_</span></div>
+    <div style="font-size: 14px;">Check-in | Ajuda</div>
+</header>
 
-<div class="hero">
-    <h1>Para onde você quer voar?</h1>
-    <p>Encontre os melhores preços para sua próxima aventura.</p>
-</div>
-
-<div class="search-box">
-    <div class="input-group">
-        <label>Origem</label>
-        <input type="text" placeholder="Cidade ou Aeroporto">
-    </div>
-    <div class="input-group">
-        <label>Destino</label>
-        <input type="text" placeholder="Para onde vamos?">
-    </div>
-    <div class="input-group">
-        <label>Ida</label>
-        <input type="date">
-    </div>
-    <div class="input-group">
-        <label>Volta</label>
-        <input type="date">
-    </div>
-    <button class="btn-search">BUSCAR VOOS</button>
-</div>
-
-<section class="offers">
-    <h3>Ofertas Imperdíveis</h3>
-    <div class="offer-card">
-        <div class="offer-img" style="background: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=300&q=80') center/cover;"></div>
-        <div class="offer-content">
-            <h4>São Paulo → Dubai</h4>
-            <p>Voo direto, classe econômica.</p>
-            <div class="price">R$ 4.580</div>
-        </div>
+<section class="hero">
+    <div class="hero-text">
+        <h1>A assinatura que acelera seus sonhos</h1>
+        <button style="background: var(--azul-claro); border: none; color: white; padding: 10px 20px; border-radius: 5px; margin-top: 15px; cursor: pointer;">Assine já</button>
     </div>
 </section>
+
+<div class="search-container">
+    <h3 style="color: var(--azul-escuro); margin-top: 0;">Para onde a Azul te leva hoje?</h3>
+    <div class="search-grid">
+        <div class="input-group">
+            <label>ORIGEM</label>
+            <input type="text" placeholder="Cidade ou Aeroporto">
+        </div>
+        <div class="input-group">
+            <label>DESTINO</label>
+            <input type="text" placeholder="Para onde vamos?">
+        </div>
+        <div class="input-group">
+            <label>IDA</label>
+            <input type="date">
+        </div>
+        <div class="input-group">
+            <label>VOLTA</label>
+            <input type="date">
+        </div>
+    </div>
+    <button class="btn-busca">BUSCAR VOOS AZUL</button>
+</div>
+
+<div class="shortcuts">
+    <h3>Já sabe o que procura? Use estes atalhos:</h3>
+    <div class="shortcut-grid">
+        <div class="shortcut-card">
+            <div class="icon-circle">★</div>
+            <div><strong>Conheça o programa</strong></div>
+        </div>
+        <div class="shortcut-card">
+            <div class="icon-circle">✈</div>
+            <div><strong>Clube Azul</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div>Comprar</div>
+    <div>Viagens</div>
+    <div>Check-in</div>
+    <div>Login</div>
+    <div>Menu</div>
+</div>
 
 </body>
 </html>
