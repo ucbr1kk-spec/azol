@@ -3,142 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | Onde o céu é mais azul</title>
+    <title>FlyAero | Reserve sua Viagem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Estilos inspirados na identidade visual da marca */
         :root {
-            --azul-escuro: #002e5d;
-            --azul-claro: #0073ce;
-            --amarelo-azol: #ffc600;
-            --branco: #ffffff;
-            --cinza-fundo: #f0f2f5;
+            --primary: #002D62;
+            --secondary: #FFC107;
+            --text: #333;
+            --light: #f8f9fa;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--cinza-fundo); color: #333; }
-        
-        /* Cabeçalho */
-        header { 
-            background: linear-gradient(90deg, var(--azul-escuro), var(--azul-claro)); 
-            color: white; 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: var(--text);
+        }
+
+        /* Navbar elegante */
+        nav {
+            background: var(--primary);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            color: white;
         }
 
-        .logo { font-size: 28px; font-weight: bold; letter-spacing: -1px; }
-        .logo span { color: var(--amarelo-azol); }
+        .logo { font-size: 24px; font-weight: 600; letter-spacing: 1px; }
 
         /* Banner Principal */
         .hero {
-            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0,45,98,0.7), rgba(0,45,98,0.7)), 
+                        url('https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            height: 300px;
+            height: 400px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
         }
 
-        /* Formulário de Busca */
-        .search-container { 
-            background: white; 
-            padding: 25px; 
-            max-width: 900px; 
-            margin: -50px auto 50px auto; 
-            border-radius: 12px; 
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15); 
-            position: relative;
+        /* Caixa de Pesquisa */
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            max-width: 900px;
+            width: 90%;
+            margin: -60px auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
         }
 
-        .search-container h2 { color: var(--azul-escuro); margin-top: 0; }
-
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-size: 12px; font-weight: 600; color: #777; margin-bottom: 5px; text-transform: uppercase; }
         
-        .field { display: flex; flex-direction: column; }
-        
-        label { font-size: 12px; font-weight: bold; color: #666; margin-bottom: 5px; text-transform: uppercase; }
-
-        input, select { 
-            padding: 12px; 
-            border: 1px solid #ddd; 
-            border-radius: 6px; 
-            font-size: 14px;
-        }
-
-        .btn-buscar { 
-            background-color: var(--amarelo-azol); 
-            color: var(--azul-escuro); 
-            font-weight: bold; 
-            padding: 15px;
-            border: none;
+        input {
+            padding: 12px;
+            border: 1px solid #ddd;
             border-radius: 6px;
-            cursor: pointer;
-            grid-column: span 4;
-            font-size: 16px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .btn-buscar:hover { background-color: #e6b400; transform: translateY(-2px); }
+        input:focus { border-color: var(--primary); }
 
-        /* Ofertas */
-        .ofertas { max-width: 900px; margin: 0 auto; padding: 20px; }
-        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 120px; object-fit: cover; }
-        .card-content { padding: 15px; }
-        .card-price { color: var(--azul-claro); font-size: 20px; font-weight: bold; }
-
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-            .btn-buscar { grid-column: span 2; }
-            .card-grid { grid-template-columns: 1fr; }
+        .btn-search {
+            background: var(--secondary);
+            color: #000;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            align-self: flex-end;
         }
+
+        .btn-search:hover { background: #e5ad00; transform: translateY(-2px); }
+
+        /* Seção de Ofertas */
+        .offers { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .offer-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .offer-img { width: 200px; background: #ddd; }
+        .offer-content { padding: 20px; flex-grow: 1; }
+        .price { color: var(--primary); font-size: 22px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">AZOL<span>_</span></div>
-    <nav>Check-in | Minhas Viagens | Ajuda</nav>
-</header>
+<nav>
+    <div class="logo">FlyAero</div>
+    <div>Check-in | Minhas Viagens</div>
+</nav>
 
-<div class="hero"></div>
-
-<div class="search-container">
-    <h2>Para onde a Azol te leva hoje?</h2>
-    <div class="grid">
-        <div class="field">
-            <label>Origem</label>
-            <input type="text" id="origem" placeholder="Cidade ou Aeroporto">
-        </div>
-        <div class="field">
-            <label>Destino</label>
-            <input type="text" id="destino" placeholder="Para onde vamos?">
-        </div>
-        <div class="field">
-            <label>Ida</label>
-            <input type="date" id="data-ida">
-        </div>
-        <div class="field">
-            <label>Volta</label>
-            <input type="date" id="data-volta">
-        </div>
-        <button class="btn-buscar" onclick="pesquisar()">BUSCAR VOOS AZOL</button>
-    </div>
+<div class="hero">
+    <h1>Para onde você quer voar?</h1>
+    <p>Encontre os melhores preços para sua próxima aventura.</p>
 </div>
 
-<div class="ofertas">
-    <h3>Ofertas Imperdíveis</h3>
-    <div class="card-grid">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=60" alt="Dubai">
-            <div class="card-content">
-                <strong>São Paulo → Dubai</strong>
-                <p class="card-price">R$ 4.500</p>
-            </div>
-        </div>
+<div class="search-box">
+    <div class="input-group">
+        <label>Origem</label>
+        <input type="text" placeholder="Cidade ou Aeroporto">
+    </div>
+    <div class="input-group">
+        <label>Destino</label>
+        <input type="text" placeholder="Para onde vamos?">
+    </div>
+    <div class="input-group">
+        <label>Ida</label>
+        <input type="date">
+    </div>
+    <div class="input-group">
+        <label>Volta</label>
+        <input type="date">
+    </div>
+    <button class="btn-search">BUSCAR VOOS</button>
+</div>
 
-        
+<section class="offers">
+    <h3>Ofertas Imperdíveis</h3>
+    <div class="offer-card">
+        <div class="offer-img" style="background: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=300&q=80') center/cover;"></div>
+        <div class="offer-content">
+            <h4>São Paulo → Dubai</h4>
+            <p>Voo direto, classe econômica.</p>
+            <div class="price">R$ 4.580</div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
