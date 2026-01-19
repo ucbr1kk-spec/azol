@@ -3,132 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | PTFS Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Azol Linhas Aéreas | Premium Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --azol-main: #003399;
-            --azol-light: #0093d3;
+            --azol-primary: #003399;
+            --azol-accent: #0093d3;
             --azol-gold: #ffc600;
-            --white: #ffffff;
-            --bg: #f0f4f8;
+            --glass: rgba(255, 255, 255, 0.95);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
-            background-color: var(--bg);
-            color: #1a1a1a;
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
         }
 
-        /* Header Elegante */
+        /* Header Minimalista */
         header {
-            background-color: var(--azol-main);
-            color: white;
-            padding: 18px 5%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 25px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
         }
 
         .logo { 
-            font-family: 'Montserrat', sans-serif;
             font-size: 32px; 
-            font-weight: 700; 
-            letter-spacing: -1px;
+            font-weight: 800; 
+            color: white;
+            letter-spacing: -1.5px;
+            text-transform: uppercase;
         }
         .logo span { color: var(--azol-gold); }
 
-        .nav-links { font-size: 14px; font-weight: 500; opacity: 0.9; }
+        .nav-menu { color: white; font-size: 13px; font-weight: 600; letter-spacing: 1px; }
 
-        /* Banner com Avião */
+        /* Banner de Ultra-Qualidade */
         .hero {
-            background: linear-gradient(rgba(0,51,153,0.5), rgba(0,51,153,0.3)), 
-                        url('https://images.unsplash.com/photo-1540339832862-47452993c66b?q=80&w=2000&auto=format&fit=crop');
+            position: relative;
+            height: 600px;
+            background: url('https://images.unsplash.com/photo-1728049123679-829bcdb1f879?fm=jpg&q=60&w=3000') no-repeat center center;
             background-size: cover;
-            background-position: center;
-            height: 450px;
             display: flex;
             align-items: center;
             padding: 0 8%;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(75deg, rgba(0,51,153,0.6) 0%, transparent 60%);
+        }
+
+        .hero-text {
+            position: relative;
             color: white;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .hero-content { max-width: 500px; }
-        .hero-content h1 { font-size: 42px; margin-bottom: 10px; line-height: 1.1; }
-        .btn-hero {
-            background: var(--azol-light);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .hero-text h1 { font-size: 56px; margin: 0; font-weight: 800; line-height: 1; letter-spacing: -2px; }
+        .hero-text p { font-size: 18px; opacity: 0.9; margin-top: 20px; }
 
-        /* Card de Pesquisa Profissional */
-        .search-card {
-            background: var(--white);
-            max-width: 1000px;
-            margin: -80px auto 40px;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .search-card h2 { color: var(--azol-main); margin-top: 0; margin-bottom: 25px; }
-
-        .grid-inputs {
+        /* Card de Busca Estilo Premium */
+        .search-engine {
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            max-width: 1100px;
+            margin: -100px auto 60px;
+            padding: 45px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
+            animation: slideUp 0.8s ease-out;
         }
 
-        .field { display: flex; flex-direction: column; }
-        .field label { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 8px; text-transform: uppercase; }
+        .search-engine h2 { grid-column: 1 / -1; margin: 0 0 20px 0; font-size: 24px; color: var(--azol-primary); }
+
+        .input-box { display: flex; flex-direction: column; gap: 8px; }
+        .input-box label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
         
         select, input {
-            padding: 14px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            background: #f9f9f9;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        select:focus, input:focus { border-color: var(--azol-light); background: white; }
-
-        .btn-search {
-            grid-column: 1 / -1;
-            background: var(--azol-gold);
-            color: var(--azol-main);
-            border: none;
-            padding: 18px;
+            padding: 16px;
+            border: 1.5px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
+            font-size: 15px;
+            font-family: inherit;
+            transition: var(--transition);
+            background: #fff;
         }
-        .btn-search:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 198, 0, 0.4); }
 
-        /* Bottom Nav estilo App */
-        .footer-nav {
+        select:hover, input:hover { border-color: var(--azol-accent); }
+        select:focus, input:focus { border-color: var(--azol-primary); box-shadow: 0 0 0 4px rgba(0,51,153,0.1); outline: none; }
+
+        .btn-main {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--azol-gold) 0%, #f59e0b 100%);
+            color: var(--azol-primary);
+            border: none;
+            padding: 20px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3); }
+
+        /* Barra Inferior (App Style) */
+        .app-bar {
             position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: var(--azol-main);
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--azol-primary);
+            padding: 12px 40px;
+            border-radius: 50px;
             display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            gap: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .app-bar item { color: white; font-size: 11px; font-weight: 600; cursor: pointer; opacity: 0.8; transition: 0.3s; }
+        .app-bar item:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Animações */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(-100px); } }
+
+        /* Mobile Adjust */
+        @media (max-width: 768px) {
+            .search-engine { grid-template-columns: 1fr; margin: -50px 20px 20px; padding: 25px; }
+            .hero-text h1 { font-size: 38px; }
         }
     </style>
 </head>
@@ -136,56 +159,56 @@
 
 <header>
     <div class="logo">Azol<span>_</span></div>
-    <div class="nav-links">Check-in | Ajuda | Status do Voo</div>
+    <div class="nav-menu">RESERVAS • STATUS • AJUDA</div>
 </header>
 
 <section class="hero">
-    <div class="hero-content">
-        <h1>Sua jornada para o céu começa aqui.</h1>
-        <p>Explore as ilhas do PTFS com o conforto que você merece.</p>
-        <button class="btn-hero">Ver Promoções</button>
+    <div class="hero-text">
+        <h1>Sua próxima aventura nas ilhas.</h1>
+        <p>A frota mais moderna do PTFS com o serviço de bordo exclusivo da Azol.</p>
     </div>
 </section>
 
-<div class="search-card">
-    <h2>Para onde a Azol te leva hoje?</h2>
-    <div class="grid-inputs">
-        <div class="field">
-            <label>Origem</label>
-            <select>
-                <option>Greater Rockford</option>
-                <option>Skoat Island</option>
-                <option>Grindavik</option>
-            </select>
-        </div>
-        <div class="field">
-            <label>Destino (Ilhas PTFS)</label>
-            <select>
-                <option>Skoat Island</option>
-                <option>Grindavik</option>
-                <option>Saint Barth</option>
-                <option>Larnaca</option>
-                <option>Perth</option>
-            </select>
-        </div>
-        <div class="field">
-            <label>Ida</label>
-            <input type="date">
-        </div>
-        <div class="field">
-            <label>Volta</label>
-            <input type="date">
-        </div>
-        <button class="btn-search">BUSCAR VOOS AZOL</button>
+<div class="search-engine">
+    <h2>Reserve seu voo premium</h2>
+    
+    <div class="input-box">
+        <label>Origem</label>
+        <select>
+            <option>Greater Rockford (GRK)</option>
+            <option>Skoat Island (SKT)</option>
+            <option>Grindavik Int (GRN)</option>
+        </select>
     </div>
+
+    <div class="input-box">
+        <label>Destino (PTFS)</label>
+        <select>
+            <option>Skoat Island (SKT)</option>
+            <option>Saint Barth (STB)</option>
+            <option>Larnaca (LAR)</option>
+            <option>Perth Regional (PER)</option>
+        </select>
+    </div>
+
+    <div class="input-box">
+        <label>Data de Ida</label>
+        <input type="date">
+    </div>
+
+    <div class="input-box">
+        <label>Data de Volta</label>
+        <input type="date">
+    </div>
+
+    <button class="btn-main">BUSCAR PASSAGENS DISPONÍVEIS</button>
 </div>
 
-<div style="height: 100px;"></div> <nav class="footer-nav">
-    <div>COMPRAR</div>
-    <div>VIAGENS</div>
-    <div>CHECK-IN</div>
-    <div>LOGIN</div>
-    <div>MENU</div>
+<nav class="app-bar">
+    <item>COMPRAR</item>
+    <item>VIAGENS</item>
+    <item>CHECK-IN</item>
+    <item>MENU</item>
 </nav>
 
 </body>
