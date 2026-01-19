@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azol Linhas Aéreas | Premium Experience</title>
+    <title>Azol Linhas Aéreas | PTFS Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* MANTIDO EXATAMENTE COMO VOCÊ APROVOU */
         :root {
             --azol-primary: #003399;
             --azol-accent: #0093d3;
@@ -47,11 +48,9 @@
 
         .nav-menu { color: white; font-size: 13px; font-weight: 600; letter-spacing: 1px; }
 
-        /* Banner Centralizado com Efeito Profissional */
         .hero {
             position: relative;
             height: 650px;
-            /* Centralização total da imagem abaixo */
             background-image: url('https://images.unsplash.com/photo-1728049123679-829bcdb1f879?fm=jpg&q=60&w=3000');
             background-repeat: no-repeat;
             background-position: center center; 
@@ -65,7 +64,6 @@
             content: '';
             position: absolute;
             inset: 0;
-            /* Overlay escuro centralizado para destacar o texto */
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,51,153,0.5) 100%);
         }
 
@@ -162,7 +160,7 @@
 
 <header>
     <div class="logo">Azol<span>_</span></div>
-    <div class="nav-menu">RESERVAS • STATUS • AJUDA</div>
+    <div class="nav-menu" style="cursor: pointer;" onclick="alert('Sistema de Status em manutenção!')">RESERVAS • STATUS • AJUDA</div>
 </header>
 
 <section class="hero">
@@ -177,42 +175,116 @@
     
     <div class="input-box">
         <label>Origem</label>
-        <select>
-            <option>Greater Rockford (GRK)</option>
-            <option>Skoat Island (SKT)</option>
-            <option>Grindavik Int (GRN)</option>
+        <select id="origem">
+            <option>Greater Rockford</option>
+            <option>Grindavik</option>
+            <option>Skoat Island</option>
+            <option>Saint Barthélemy</option>
+            <option>Perth</option>
+            <option>Cyprus</option>
+            <option>Orenji</option>
+            <option>Izolirani</option>
+            <option>Skopelos</option>
+            <option>Sauthemptona</option>
+            <option>USS Carrier</option>
+            <option>HMS Carrier</option>
+            <option>Oil Rig</option>
         </select>
     </div>
 
     <div class="input-box">
-        <label>Destino (PTFS)</label>
-        <select>
-            <option>Skoat Island (SKT)</option>
-            <option>Saint Barth (STB)</option>
-            <option>Larnaca (LAR)</option>
-            <option>Perth Regional (PER)</option>
+        <label>Destino</label>
+        <select id="destino">
+            <option>Skoat Island</option>
+            <option>Greater Rockford</option>
+            <option>Grindavik</option>
+            <option>Saint Barthélemy</option>
+            <option>Perth</option>
+            <option>Cyprus</option>
+            <option>Orenji</option>
+            <option>Izolirani</option>
+            <option>Skopelos</option>
+            <option>Sauthemptona</option>
+            <option>USS Carrier</option>
+            <option>HMS Carrier</option>
+            <option>Oil Rig</option>
         </select>
     </div>
 
     <div class="input-box">
         <label>Data de Ida</label>
-        <input type="date">
+        <input type="date" id="data_ida">
     </div>
 
     <div class="input-box">
         <label>Data de Volta</label>
-        <input type="date">
+        <input type="date" id="data_volta">
     </div>
 
-    <button class="btn-main">BUSCAR PASSAGENS DISPONÍVEIS</button>
+    <button class="btn-main" onclick="enviarParaDiscord()">BUSCAR VOOS NA MALHA PTFS</button>
 </div>
 
 <nav class="app-bar">
-    <item>COMPRAR</item>
-    <item>VIAGENS</item>
-    <item>CHECK-IN</item>
-    <item>MENU</item>
+    <item onclick="alert('Redirecionando para Loja...')">COMPRAR</item>
+    <item onclick="alert('Abrindo Histórico de Viagens...')">VIAGENS</item>
+    <item onclick="alert('Iniciando Check-in...')">CHECK-IN</item>
+    <item onclick="alert('Abrindo Menu...')">MENU</item>
 </nav>
+
+<script>
+    function enviarParaDiscord() {
+        // PEGANDO OS DADOS DO SITE
+        const origem = document.getElementById('origem').value;
+        const destino = document.getElementById('destino').value;
+        const dataIda = document.getElementById('data_ida').value;
+        const dataVolta = document.getElementById('data_volta').value;
+        const btn = document.querySelector('.btn-main');
+
+        if (!dataIda) {
+            alert("Por favor, escolha uma data de ida!");
+            return;
+        }
+
+        // COLOQUE O SEU LINK DO DISCORD AQUI EMBAIXO:
+        const webhookURL = "COLE_SEU_WEBHOOK_AQUI";
+
+        const mensagem = {
+            username: "Azol Bot - Reservas",
+            avatar_url: "https://images.unsplash.com/photo-1540339832862-47452993c66b?q=80&w=200",
+            embeds: [{
+                title: "✈️ Nova Passagem Reservada!",
+                color: 32767, // Azul
+                fields: [
+                    { name: "📍 Origem", value: origem, inline: true },
+                    { name: "🏁 Destino", value: destino, inline: true },
+                    { name: "📅 Ida", value: dataIda, inline: true },
+                    { name: "📅 Volta", value: dataVolta || "Só ida", inline: true }
+                ],
+                footer: { text: "Azol Linhas Aéreas - PTFS Edition" },
+                timestamp: new Date()
+            }]
+        };
+
+        btn.innerText = "PROCESSANDO...";
+        btn.disabled = true;
+
+        fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mensagem)
+        })
+        .then(() => {
+            alert("✅ Passagem enviada com sucesso para o canal da Azol!");
+            btn.innerText = "BUSCAR VOOS NA MALHA PTFS";
+            btn.disabled = false;
+        })
+        .catch(err => {
+            alert("Erro ao enviar. Verifique seu Webhook.");
+            console.error(err);
+            btn.disabled = false;
+        });
+    }
+</script>
 
 </body>
 </html>
