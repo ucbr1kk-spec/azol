@@ -2,281 +2,192 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Azol Linhas Aéreas</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <style>
     :root {
-      --bg-dark: #002251;
-      --bg-gradient: linear-gradient(to bottom, #002251, #001845);
-      --azul-medium: #0093d7;
-      --azul-light: #4fc3f7;
-      --white: #ffffff;
-      --text-dark: #003366;
-      --gray-placeholder: #a0b0c0;
-      --radius-oval: 50px;  /* Oval extremo como na Azul */
-      --shadow: 0 4px 10px rgba(0,0,0,0.25);
+      --azul-escuro: #002251;
+      --azul-medio: #0093d7;
+      --azul-claro: #4fc3f7;
+      --branco: #ffffff;
+      --cinza-claro: #f8f9fa;
+      --texto-escuro: #1a2b44;
+      --sombra: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --raio: 12px;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Open Sans', sans-serif;
-      background: var(--bg-gradient);
-      color: var(--white);
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom, var(--azul-escuro), #001230);
+      color: var(--branco);
       min-height: 100vh;
-      overflow-x: hidden;
     }
-
-    /* Navbar */
     .navbar {
-      background: var(--bg-dark);
-      height: 56px;
+      background: var(--azul-escuro);
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 20px;
       position: fixed;
       width: 100%;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
-
-    .hamburger {
-      font-size: 2.2rem;
-      color: var(--white);
-      cursor: pointer;
-    }
-
     .logo {
       font-size: 1.8rem;
       font-weight: 700;
-      color: var(--azul-light);
-      text-shadow: 0 0 12px rgba(79,195,247,0.5);
+      color: var(--azul-claro);
     }
-
-    .icons {
+    .nav-icons {
       display: flex;
-      gap: 20px;
+      gap: 24px;
     }
-
     .icon {
-      font-size: 1.8rem;
-      color: var(--white);
+      font-size: 1.6rem;
+      color: var(--branco);
       cursor: pointer;
     }
-
-    /* Tabs */
     .tabs {
       display: flex;
       justify-content: center;
-      margin: 60px 16px 12px;
-      gap: 8px;
-      flex-wrap: wrap;
+      margin: 70px 20px 20px;
+      gap: 12px;
     }
-
     .tab {
       background: rgba(255,255,255,0.1);
-      color: var(--white);
-      padding: 10px 22px;
-      border-radius: var(--radius-oval);
-      font-weight: 600;
-      font-size: 1rem;
+      color: var(--branco);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-weight: 500;
       cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s;
+      border: 1px solid transparent;
     }
-
     .tab.active {
-      background: var(--white);
-      color: var(--azul-medium);
-      border: 2px solid var(--white);
+      background: var(--branco);
+      color: var(--azul-medio);
+      border: 1px solid var(--branco);
     }
-
-    /* Promo OFF */
+    .promo {
+      text-align: center;
+      margin: 12px 0;
+    }
     .promo-tag {
-      background: var(--white);
-      color: var(--azul-medium);
-      font-weight: 700;
-      padding: 8px 20px;
-      border-radius: var(--radius-oval);
-      font-size: 1rem;
-      margin: 8px auto;
-      display: inline-block;
-      border: 2px solid var(--white);
-      box-shadow: var(--shadow);
+      background: var(--branco);
+      color: var(--azul-medio);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--azul-claro);
     }
-
-    /* Busca */
-    .search {
-      padding: 0 16px;
+    .search-container {
+      padding: 0 20px;
     }
-
     .search-field {
-      background: var(--white);
-      color: var(--text-dark);
-      padding: 18px 20px 18px 56px;
+      background: var(--branco);
+      color: var(--texto-escuro);
+      padding: 16px 20px 16px 50px;
       margin-bottom: 12px;
-      border-radius: var(--radius-oval);
-      font-size: 1.15rem;
+      border-radius: 30px;
       position: relative;
-      box-shadow: var(--shadow);
+      box-shadow: var(--sombra);
     }
-
     .search-field::before {
-      content: '';
+      content: attr(data-icon);
       position: absolute;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1.6rem;
-      color: var(--azul-medium);
+      color: var(--azul-medio);
+      font-size: 1.4rem;
     }
-
-    .origem::before { content: '○'; font-weight: bold; }
-    .destino::before { content: '📍'; color: #e74c3c; } /* Pin vermelho como na Azul */
-    .datas::before { content: '📅'; }
-
-    .search-field input {
+    .search-field input, .search-field select {
       width: 100%;
       border: none;
-      outline: none;
       background: transparent;
-      font-size: 1.15rem;
-      color: var(--text-dark);
+      font-size: 1.1rem;
+      color: var(--texto-escuro);
     }
-
     .search-field input::placeholder {
-      color: var(--gray-placeholder);
+      color: #a0b0c0;
     }
-
-    .search-btn {
-      background: var(--azul-medium);
-      color: var(--white);
+    .btn-buscar {
+      background: var(--azul-medio);
+      color: var(--branco);
       width: 100%;
       padding: 18px;
-      border-radius: var(--radius-oval);
-      font-size: 1.3rem;
-      font-weight: 700;
       border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: 600;
       cursor: pointer;
-      box-shadow: var(--shadow);
-      margin-top: 8px;
+      margin-top: 12px;
+      box-shadow: var(--sombra);
     }
-
-    /* Anoteceu */
     .anoteceu {
-      margin: 32px 16px;
       text-align: center;
-      font-size: 1.1rem;
-      color: var(--white);
-    }
-
-    .anoteceu strong {
-      color: var(--azul-light);
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: var(--white);
-      padding: 32px 24px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 380px;
-      color: var(--text-dark);
-    }
-
-    .close {
-      float: right;
-      font-size: 2.2rem;
-      cursor: pointer;
-      color: #888;
-    }
-
-    @media (min-width: 768px) {
-      .tabs { gap: 12px; }
-      .search { max-width: 600px; margin: 0 auto; }
+      margin: 40px 20px;
+      font-size: 1.2rem;
+      color: var(--azul-claro);
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar">
-    <div class="hamburger">≡</div>
     <div class="logo">Azol</div>
-    <div class="icons">
-      <div class="icon" onclick="openModal('loginModal')">👤</div>
-      <div class="icon">⋯</div>
+    <div class="nav-icons">
+      <div class="icon">≡</div>
+      <div class="icon">👤</div>
     </div>
   </nav>
 
-  <!-- Tabs -->
   <div class="tabs">
     <div class="tab active">Voos</div>
     <div class="tab">Hotéis</div>
-    <div class="tab">Ingressos e Pacotes</div>
+    <div class="tab">Pacotes</div>
   </div>
 
-  <!-- Promo -->
-  <div style="text-align:center;">
+  <div class="promo">
     <div class="promo-tag">15% OFF</div>
   </div>
 
-  <!-- Busca -->
-  <div class="search">
-    <div class="search-field origem">
-      <input type="text" placeholder="Origem" />
+  <div class="search-container">
+    <div class="search-field" data-icon="○">
+      <select>
+        <option>Origem</option>
+        <option>Orenji</option>
+        <option>Grindavik</option>
+        <option>Perth</option>
+        <option>Cyprus</option>
+        <option>Izolirani</option>
+        <option>Skopelos</option>
+        <option>Greater Rockford</option>
+        <!-- adicione os outros -->
+      </select>
     </div>
-    <div class="search-field destino">
-      <input type="text" placeholder="Destino" />
+    <div class="search-field" data-icon="📍">
+      <select>
+        <option>Destino</option>
+        <option>Orenji</option>
+        <option>Grindavik</option>
+        <option>Perth</option>
+        <option>Cyprus</option>
+        <option>Izolirani</option>
+        <option>Skopelos</option>
+        <option>Greater Rockford</option>
+      </select>
     </div>
-    <div class="search-field datas">
+    <div class="search-field" data-icon="📅">
       <input type="text" placeholder="Datas (Ida e Volta)" />
     </div>
-    <button class="search-btn">Buscar</button>
+    <button class="btn-buscar">Buscar</button>
   </div>
 
-  <!-- Anoteceu -->
-  <div class="anoteceu">
-    <strong>🌙 Anoteceu Azol</strong>
-  </div>
-
-  <!-- Modal Login -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('loginModal')">&times;</span>
-      <h2 style="text-align:center; margin-bottom:24px; color:var(--azul-medium);">Entrar na Azol</h2>
-      <input type="email" placeholder="Email" style="width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:1rem;" />
-      <input type="password" placeholder="Senha" style="width:100%; padding:14px; margin-bottom:16px; border-radius:12px; border:1px solid #ccc; font-size:1rem;" />
-      <button class="search-btn" style="background:var(--azul-medium);">Entrar</button>
-    </div>
-  </div>
-
-  <script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    document.querySelector('.search-btn').addEventListener('click', () => {
-      alert('Buscando voos incríveis para as ilhas... ✈️');
-    });
-  </script>
+  <div class="anoteceu">Anoteceu Azol</div>
 
 </body>
 </html>
