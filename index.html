@@ -2,21 +2,22 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Azol Linhas Aéreas - O Céu é Azol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Azol Linhas Aéreas</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   
   <style>
     :root {
-      --azol-dark: #002251;          /* Azul escuro fundo */
-      --azol-medium: #0093d7;        /* Azul médio principal */
-      --azol-light: #4fc3f7;         /* Azul claro logo e accents */
+      --bg-dark: #002251;
+      --bg-gradient: linear-gradient(to bottom, #002251, #001845);
+      --azul-medium: #0093d7;
+      --azul-light: #4fc3f7;
       --white: #ffffff;
       --text-dark: #003366;
-      --gray-light: #e6f0fa;
-      --shadow: 0 4px 12px rgba(0,0,0,0.15);
-      --radius: 30px;                /* Bordas arredondadas como na Azul */
+      --gray-placeholder: #a0b0c0;
+      --radius-oval: 50px;  /* Oval extremo como na Azul */
+      --shadow: 0 4px 10px rgba(0,0,0,0.25);
     }
 
     * {
@@ -27,14 +28,15 @@
 
     body {
       font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(to bottom, var(--azol-dark), #001845);
+      background: var(--bg-gradient);
       color: var(--white);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Navbar - Exato como na Azul mobile */
+    /* Navbar */
     .navbar {
-      background: var(--azol-dark);
+      background: var(--bg-dark);
       height: 56px;
       display: flex;
       align-items: center;
@@ -44,75 +46,74 @@
       width: 100%;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .hamburger {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--white);
       cursor: pointer;
     }
 
     .logo {
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      color: var(--azol-light);
-      text-shadow: 0 0 8px rgba(79,195,247,0.4);
+      color: var(--azul-light);
+      text-shadow: 0 0 12px rgba(79,195,247,0.5);
     }
 
     .icons {
       display: flex;
-      gap: 24px;
+      gap: 20px;
     }
 
     .icon {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       color: var(--white);
       cursor: pointer;
     }
 
-    /* Tabs - Igual ao app Azul */
+    /* Tabs */
     .tabs {
       display: flex;
       justify-content: center;
-      margin: 60px 16px 16px;
+      margin: 60px 16px 12px;
       gap: 8px;
       flex-wrap: wrap;
     }
 
     .tab {
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.1);
       color: var(--white);
-      padding: 10px 24px;
-      border-radius: var(--radius);
+      padding: 10px 22px;
+      border-radius: var(--radius-oval);
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s;
       border: 2px solid transparent;
+      transition: all 0.3s;
     }
 
     .tab.active {
       background: var(--white);
-      color: var(--azol-medium);
+      color: var(--azul-medium);
       border: 2px solid var(--white);
     }
 
-    /* Promo Tag - Branco com borda azul, sem amarelo */
+    /* Promo OFF */
     .promo-tag {
-      background: transparent;
-      color: var(--white);
-      border: 2px solid var(--white);
+      background: var(--white);
+      color: var(--azul-medium);
       font-weight: 700;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 0.95rem;
-      margin: 12px auto;
+      padding: 8px 20px;
+      border-radius: var(--radius-oval);
+      font-size: 1rem;
+      margin: 8px auto;
       display: inline-block;
-      text-align: center;
+      border: 2px solid var(--white);
+      box-shadow: var(--shadow);
     }
 
-    /* Busca - Campos brancos empilhados com ícones azul */
+    /* Busca */
     .search {
       padding: 0 16px;
     }
@@ -120,9 +121,9 @@
     .search-field {
       background: var(--white);
       color: var(--text-dark);
-      padding: 18px 20px 18px 50px;
+      padding: 18px 20px 18px 56px;
       margin-bottom: 12px;
-      border-radius: var(--radius);
+      border-radius: var(--radius-oval);
       font-size: 1.15rem;
       position: relative;
       box-shadow: var(--shadow);
@@ -134,12 +135,12 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1.5rem;
-      color: var(--azol-medium);
+      font-size: 1.6rem;
+      color: var(--azul-medium);
     }
 
-    .origem::before { content: '○'; }
-    .destino::before { content: '📍'; }
+    .origem::before { content: '○'; font-weight: bold; }
+    .destino::before { content: '📍'; color: #e74c3c; } /* Pin vermelho como na Azul */
     .datas::before { content: '📅'; }
 
     .search-field input {
@@ -151,34 +152,37 @@
       color: var(--text-dark);
     }
 
+    .search-field input::placeholder {
+      color: var(--gray-placeholder);
+    }
+
     .search-btn {
-      background: var(--azol-medium);
+      background: var(--azul-medium);
       color: var(--white);
       width: 100%;
       padding: 18px;
-      border-radius: var(--radius);
+      border-radius: var(--radius-oval);
       font-size: 1.3rem;
       font-weight: 700;
-      margin-top: 12px;
       border: none;
       cursor: pointer;
       box-shadow: var(--shadow);
+      margin-top: 8px;
     }
 
-    /* Anoteceu Azol - Fundo escuro com imagem */
+    /* Anoteceu */
     .anoteceu {
-      margin: 40px 16px;
+      margin: 32px 16px;
       text-align: center;
+      font-size: 1.1rem;
+      color: var(--white);
     }
 
-    .anoteceu img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
+    .anoteceu strong {
+      color: var(--azul-light);
     }
 
-    /* Modal Login */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -206,8 +210,8 @@
     }
 
     @media (min-width: 768px) {
-      .tabs { gap: 16px; }
-      .search { max-width: 700px; margin: 0 auto; }
+      .tabs { gap: 12px; }
+      .search { max-width: 600px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -230,7 +234,7 @@
     <div class="tab">Ingressos e Pacotes</div>
   </div>
 
-  <!-- Promo Tag -->
+  <!-- Promo -->
   <div style="text-align:center;">
     <div class="promo-tag">15% OFF</div>
   </div>
@@ -249,35 +253,28 @@
     <button class="search-btn">Buscar</button>
   </div>
 
-  <!-- Anoteceu Azol -->
+  <!-- Anoteceu -->
   <div class="anoteceu">
-    <img src="https://via.placeholder.com/600x300/002251/4fc3f7?text=ANOITECEU+AZOL+✈️+Promoções+do+Dia" alt="Anoteceu Azol" />
+    <strong>🌙 Anoteceu Azol</strong>
   </div>
 
   <!-- Modal Login -->
   <div id="loginModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal('loginModal')">&times;</span>
-      <h2 style="text-align:center; margin-bottom:24px;">Entrar na Azol</h2>
-      <p style="margin:16px 0;">Email</p>
-      <input type="email" style="width:100%; padding:14px; border-radius:12px; border:1px solid #ccc; margin-bottom:16px;" placeholder="seu@email.com" />
-      <p>Senha</p>
-      <input type="password" style="width:100%; padding:14px; border-radius:12px; border:1px solid #ccc; margin-bottom:16px;" placeholder="••••••••" />
-      <button class="search-btn" style="background:var(--azol-medium); color:var(--white);">Entrar</button>
+      <h2 style="text-align:center; margin-bottom:24px; color:var(--azul-medium);">Entrar na Azol</h2>
+      <input type="email" placeholder="Email" style="width:100%; padding:14px; margin-bottom:12px; border-radius:12px; border:1px solid #ccc; font-size:1rem;" />
+      <input type="password" placeholder="Senha" style="width:100%; padding:14px; margin-bottom:16px; border-radius:12px; border:1px solid #ccc; font-size:1rem;" />
+      <button class="search-btn" style="background:var(--azul-medium);">Entrar</button>
     </div>
   </div>
 
   <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // Busca fake
     document.querySelector('.search-btn').addEventListener('click', () => {
-      alert('Buscando voos para as ilhas incríveis... Pronto!');
+      alert('Buscando voos incríveis para as ilhas... ✈️');
     });
   </script>
 
